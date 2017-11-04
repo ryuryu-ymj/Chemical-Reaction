@@ -9,36 +9,21 @@ import org.newdawn.slick.SpriteSheet;
 public class Background extends GameObject
 {
 	/**
-	 * 縦幅
+	 * 縦幅　余白も入れて
 	 */
-	public static final int HEIGHT = 227 * 5 / 6;
+	public static final int HEIGHT = 227;
 	/**
-	 * 横幅
+	 * 横幅　余白も入れて
 	 */
-	public static final int WIDTH = (int) (170 * 3.5 / 4.5);
+	public static final int WIDTH = 170;
+	/**
+	 * 余白の枠の幅
+	 */
+	public static final int SPACE_BREADTH = 23;
 	/**
 	 * カード番号
 	 */
 	private final int num;
-
-	/** 画像 */
-	private static Image[] img;
-	static
-	{
-		try
-		{
-			img = new Image[2];
-			SpriteSheet ss = new SpriteSheet("res/img/background.png", (int) (WIDTH * 4.5 / 3.5), HEIGHT * 6 / 5);
-			for (int i = 0; i < img.length; i++)
-			{
-				img[i] = ss.getSubImage(i % 2, i / 2);
-			}
-		}
-		catch (SlickException e)
-		{
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * コンストラクタ
@@ -62,6 +47,5 @@ public class Background extends GameObject
 	@Override
 	public void render(Graphics g)
 	{
-		img[num].draw(x, y);
 	}
 }

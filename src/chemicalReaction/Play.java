@@ -29,9 +29,9 @@ public class Play extends GameState
 	{
 		super();
 		objectPool = new ObjectPool();
-		for (int i = 0; i < 8; i++)
+		for (int i = 1; i < 9; i++)
 		{
-			ObjectPool.newCard(i, "Au", 100 - i, Play.DISPLAY_HEIGHT / 2 - Background.HEIGHT / 2 - i, (Background.WIDTH + 20) * i + 50, Play.DISPLAY_HEIGHT - Background.HEIGHT - 50);
+			ObjectPool.newCard(i, "Au", 100 - i, Play.DISPLAY_HEIGHT / 2 - Card.HEIGHT / 2 - i, (Card.WIDTH) * i - 150, Play.DISPLAY_HEIGHT - Card.HEIGHT - 50);
 		}
 	}
 

@@ -49,25 +49,6 @@ public class Card extends GameObject
 	 */
 	private int moveCount;
 
-	/** 画像 */
-	private static Image[] img;
-	static
-	{
-		try
-		{
-			img = new Image[21];
-			SpriteSheet ss = new SpriteSheet("res/img/card.png", WIDTH, HEIGHT);
-			for (int i = 0; i < img.length; i++)
-			{
-				img[i] = ss.getSubImage(i % 7, i / 7);
-			}
-		}
-		catch (SlickException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
 	/**
 	 * コンストラクタ
 	 */
@@ -98,7 +79,7 @@ public class Card extends GameObject
 	@Override
 	public void render(Graphics g)
 	{
-		img[num].draw(x, y);
+		GameImage.renderCard(num, x, y);
 		//img[num].draw((float)(x - width / 2 / 3.5), y - height / 2 / 5, (float)(width * 4.5 / 3.5), height * 6 / 5);
 		//System.out.println(CardSet.getSymbolFromNum(0));
 		/*g.setColor(Color.blue);
