@@ -122,7 +122,7 @@ public class ObjectPool
 		{
 			if ((Play.counter - 20) / (i + 1) == 10)
 			{
-				card[i].moveCardAuto(10);
+				card[i].setMoveAuto(true);
 			}
 		}
 	}

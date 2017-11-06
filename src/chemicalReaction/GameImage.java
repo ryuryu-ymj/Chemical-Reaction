@@ -42,8 +42,8 @@ public class GameImage
 		try
 		{
 			SpriteSheet ss = new SpriteSheet("res/img/background.png", Card.WIDTH, Card.HEIGHT);
-			cardBack = ss.getSubImage(0, 0);
-			cardFrame = ss.getSubImage(0, 1);
+			cardBack = ss.getSubImage(1, 0);
+			cardFrame = ss.getSubImage(0, 0);
 		}
 		catch (SlickException e)
 		{
@@ -70,6 +70,25 @@ public class GameImage
 	public static void renderCardBack(float x, float y)
 	{
 		cardBack.draw(x, y);
+	}
+
+	/**
+	 * 
+	 * @param num 原子番号
+	 * @return カードの表面の画像
+	 */
+	public static Image getCard(int num)
+	{
+		return card[num];
+	}
+
+	/**
+	 * 
+	 * @return カードの裏面の画像
+	 */
+	public static Image getCardBack()
+	{
+		return cardBack;
 	}
 
 	/**

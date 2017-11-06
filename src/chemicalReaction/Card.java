@@ -37,17 +37,18 @@ public class Card extends GameObject
 	 */
 	static int holdCardNum;
 	/**
-	 * 移動速度
-	 */
-	private float speedX, speedY;
-	/**
 	 * そのカードが置かれている座標
 	 */
 	private float putX, putY;
 	/**
-	 * カードを自動で動かすときのコマ数
+	 * そのカードをput座標まで自動で動かすかどうか
 	 */
-	private int moveCount;
+	private boolean isMoveAuto;
+	/**
+	 * カードの角度　0 <= θ < 2π<p>
+	 * 0　だったら表面　π　だったら裏面
+	 */
+	private double angle;
 
 	/**
 	 * コンストラクタ
@@ -62,24 +63,28 @@ public class Card extends GameObject
 	@Override
 	public void update(GameContainer gc)
 	{
-		if (moveCount > 1)
+		if (isMoveAuto)
 		{
-			x += speedX;
-			y += speedY;
-			moveCount--;
+			moveCardAuto(putX, putY, 20);
+			angle += 0.1;
 		}
-		else if (moveCount == 1)
+		if (angle >= Math.PI * 2)
 		{
-			x = putX;
-			y = putY;
-			moveCount--;
+			angle = angle - Math.PI * 2;
 		}
 	}
 
 	@Override
 	public void render(Graphics g)
 	{
-		GameImage.renderCard(num, x, y);
+		if (angle >= Math.PI / 2 && angle < Math.PI * 3 / 2)
+		{
+			GameImage.getCardBack().draw(x + WIDTH / 2 - (float) (WIDTH * Math.cos(angle)) / 2, y, (float) (WIDTH * Math.cos(angle)), HEIGHT);
+		}
+		else
+		{
+			GameImage.getCard(num).draw(x + WIDTH / 2 - (float) (WIDTH * Math.cos(angle)) / 2, y, (float) (WIDTH * Math.cos(angle)), HEIGHT);
+		}
 		//img[num].draw((float)(x - width / 2 / 3.5), y - height / 2 / 5, (float)(width * 4.5 / 3.5), height * 6 / 5);
 		//System.out.println(CardSet.getSymbolFromNum(0));
 		/*g.setColor(Color.blue);
@@ -94,6 +99,7 @@ public class Card extends GameObject
 	{
 		holdX = gc.getInput().getMouseX() - x;
 		holdY = gc.getInput().getMouseY() - y;
+		//isMoveAuto = false;
 		//holdCardNum = num;
 		//System.out.println(holdX);
 	}
@@ -105,6 +111,7 @@ public class Card extends GameObject
 	{
 		x = gc.getInput().getMouseX() - holdX;
 		y = gc.getInput().getMouseY() - holdY;
+		//isMoveAuto = false;
 	}
 
 	/**
@@ -112,19 +119,30 @@ public class Card extends GameObject
 	 */
 	public void putdownCard(GameContainer gc)
 	{
+		//isMoveAuto = true;
 	}
 
 	/**
 	 * カードを自動で滑らかに移動させる
-	 * @param afterX 動かす先のx座標
-	 * @param afterY 動かす先のy座標
-	 * @param moveCount 動かすときのコマ数
+	 * @param goalX 目的地のx座標
+	 * @param goalY 目的地のy座標
+	 * @param moveSpeed 移動速度
 	 */
-	public void moveCardAuto(int imoveCount)
+	public void moveCardAuto(float goalX, float goalY, int moveSpeed)
 	{
-		moveCount = imoveCount;
-		speedX = (putX - x) / moveCount;
-		speedY = (putY - y) / moveCount;
+		double moveAngle = Math.atan2(goalY - y, goalX - x);
+		float speedX = (float) (moveSpeed * Math.cos(moveAngle));
+		float speedY = (float) (moveSpeed * Math.sin(moveAngle));
+		if ((putX - x) * (putX - x - speedX) > 0 && (putY - y) * (putY - y - speedY) > 0)
+		{
+			x += speedX;
+			y += speedY;
+		}
+		else // 通り過ぎを防ぐ
+		{
+			x = putX;
+			y = putY;
+		}
 	}
 
 	/**
@@ -139,6 +157,8 @@ public class Card extends GameObject
 	public void activate(int num, String symbol, int x, int y, int putX, int putY)
 	{
 		active = true;
+		isMoveAuto = false;
+		angle = Math.PI;
 		this.num = num;
 		this.symbol = symbol;
 		this.x = x;
@@ -154,5 +174,13 @@ public class Card extends GameObject
 	public int getNum()
 	{
 		return num;
+	}
+
+	/**
+	 *
+	 * @param isMoveAuto そのカードをput座標まで自動で動かすかどうか
+	 */
+	public void setMoveAuto(boolean isMoveAuto) {
+		this.isMoveAuto = isMoveAuto;
 	}
 }
