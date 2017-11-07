@@ -9,7 +9,7 @@ import org.newdawn.slick.SpriteSheet;
  * @author ryuryu
  *
  */
-public class GameImage
+public class ImageManager
 {
 	/**
 	 * カードの表面の画像<p>
@@ -22,7 +22,7 @@ public class GameImage
 	/** カードを置く枠の画像 */
 	private static Image cardFrame;
 
-	GameImage()
+	ImageManager()
 	{
 		try
 		{

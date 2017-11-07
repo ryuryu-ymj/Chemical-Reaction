@@ -13,13 +13,10 @@ import org.newdawn.slick.Input;
 public class ObjectPool
 {
 	private static Card[] card;
-	private static Background[] background;
+	private static Table table;
 
 	/** 画面上のカードの最大値 */
 	public static final int CARD_MAX = 15;
-	/** バックグラウンドのカードポジションの最大値 */
-	public static final int BACKGROUND_CARDPOSSESSION = 8;
-	public static final int BACKGROUND_CARDBACK = 10;
 
 	ObjectPool()
 	{
@@ -29,15 +26,7 @@ public class ObjectPool
 			card[i] = new Card();
 		}
 
-		background = new Background[BACKGROUND_CARDPOSSESSION + BACKGROUND_CARDBACK];
-		for (int i = 0; i < BACKGROUND_CARDPOSSESSION; i++)
-		{
-			background[i] = new Background(0, (Background.WIDTH + 20) * i + 50, Play.DISPLAY_HEIGHT - Background.HEIGHT - 50);
-		}
-		for (int i = 0; i < BACKGROUND_CARDBACK; i++)
-		{
-			background[BACKGROUND_CARDPOSSESSION + i] = new Background(1, 100 - i, Play.DISPLAY_HEIGHT / 2 - Background.HEIGHT / 2 - i);
-		}
+		table = new Table();
 	}
 
 	/**
@@ -60,7 +49,7 @@ public class ObjectPool
 	 */
 	public void render(Graphics g)
 	{
-		renderObjects(background, g);
+		table.render(g);
 		renderObjects(card, g);
 	}
 
@@ -109,20 +98,23 @@ public class ObjectPool
 				}
 				else
 				{
-					card[i].putdownCard(gc);
+					card[Card.holdCardNum].putdownCard(gc);
 					Card.holdCardNum = -1;
 				}
 			}
 		}
 	}
 
+	/**
+	 * カードを配る
+	 */
 	public void dealCards()
 	{
 		for (int i = 0; i < card.length; i++)
 		{
 			if ((Play.counter - 20) / (i + 1) == 10)
 			{
-				card[i].setMoveAuto(true);
+				card[i].startMoveAuto();
 			}
 		}
 	}

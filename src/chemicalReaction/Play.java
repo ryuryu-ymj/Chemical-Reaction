@@ -21,7 +21,7 @@ public class Play extends GameState
 	public static int counter;
 
 	ObjectPool objectPool;
-	GameImage gameImage;
+	ImageManager gameImage;
 
 	/**
 	 * コンストラクタ
@@ -34,7 +34,7 @@ public class Play extends GameState
 		{
 			ObjectPool.newCard(i, "Au", 100 - i, Play.DISPLAY_HEIGHT / 2 - Card.HEIGHT / 2 - i, (Card.WIDTH) * i - 150, Play.DISPLAY_HEIGHT - Card.HEIGHT - 50);
 		}
-		gameImage = new GameImage();
+		gameImage = new ImageManager();
 	}
 
 	/**
