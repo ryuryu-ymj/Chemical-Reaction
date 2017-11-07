@@ -16,7 +16,13 @@ public class GameImage
 	 * 配列番号＝原子番号
 	 */
 	private static Image[] card;
-	static
+
+	/** カードの裏面の画像 */
+	private static Image cardBack;
+	/** カードを置く枠の画像 */
+	private static Image cardFrame;
+
+	GameImage()
 	{
 		try
 		{
@@ -31,14 +37,8 @@ public class GameImage
 		{
 			e.printStackTrace();
 		}
-	}
 
-	/** カードの裏面の画像 */
-	private static Image cardBack;
-	/** カードを置く枠の画像 */
-	private static Image cardFrame;
-	static
-	{
+
 		try
 		{
 			SpriteSheet ss = new SpriteSheet("res/img/background.png", Card.WIDTH, Card.HEIGHT);
@@ -73,7 +73,7 @@ public class GameImage
 	}
 
 	/**
-	 * 
+	 *
 	 * @param num 原子番号
 	 * @return カードの表面の画像
 	 */
@@ -83,7 +83,7 @@ public class GameImage
 	}
 
 	/**
-	 * 
+	 *
 	 * @return カードの裏面の画像
 	 */
 	public static Image getCardBack()
