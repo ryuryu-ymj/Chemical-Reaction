@@ -53,6 +53,10 @@ public class Card extends GameObject
 	 * 0　だったら表面　π　だったら裏面
 	 */
 	private double angle;
+	/**
+	 * そのカードをつかめるかどうか
+	 */
+	public boolean isHoldCard;
 
 	/**
 	 * コンストラクタ
@@ -125,6 +129,7 @@ public class Card extends GameObject
 	public void putdownCard(GameContainer gc)
 	{
 		isMoveAuto = true;
+		isHoldCard = false;
 	}
 
 	/**
@@ -148,6 +153,7 @@ public class Card extends GameObject
 			x = putX;
 			y = putY;
 			isMoveAuto = false;
+			isHoldCard = true; 
 			if (angle != 0)
 			{
 				startRotationAuto();
@@ -164,7 +170,7 @@ public class Card extends GameObject
 	}
 
 	/**
-	 * カードを自動で滑らかに回転させる
+	 * カードを自動で滑らかに1回転させる
 	 */
 	private void rotationCardAuto()
 	{
@@ -198,6 +204,7 @@ public class Card extends GameObject
 		active = true;
 		isMoveAuto = false;
 		isRotationAuto = false;
+		isHoldCard = false;
 		angle = Math.PI;
 		this.num = num;
 		this.symbol = symbol;

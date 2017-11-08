@@ -10,10 +10,17 @@ public class Table extends GameObject
 {
 	/** テーブルのカードフレームの数 */
 	public static final int FRAME_NUM = 8;
+	/** カードフレームのx座標 */
+	public static final int[] FRAME_X = new int[FRAME_NUM];
+	/** カードフレームのy座標 */
+	public static final int[] FRAME_Y = new int[FRAME_NUM];
+
 	/** テーブルの山札の数 */
 	public static final int CARDBACK_NUM = 10;
-	public static final int[] FRAME_X;
-	public static final int[] FRAME_Y;
+	/** 山札のx座標 */
+	public static final int CARDBACK_X = 100;
+	/** 山札のy座標 */
+	public static final int CARDBACK_Y = Play.DISPLAY_HEIGHT / 2 - Card.HEIGHT / 2;
 
 	/**
 	 * コンストラクタ
@@ -23,12 +30,12 @@ public class Table extends GameObject
 		active = true;
 		for (int i = 0; i < FRAME_NUM; i++)
 		{
-			FRAME_X[i] = (Card.WIDTH) * i - 150;
+			FRAME_X[i] = (Card.WIDTH) * i + 20;
 			FRAME_Y[i] = Play.DISPLAY_HEIGHT - Card.HEIGHT - 50;
 		}
 	}
 
-	@Override
+	@Override 
 	public void update(GameContainer gc)
 	{
 	}
@@ -36,5 +43,13 @@ public class Table extends GameObject
 	@Override
 	public void render(Graphics g)
 	{
+		for (int i = 0; i < FRAME_NUM; i++)
+		{
+			ImageManager.renderCardFrame(FRAME_X[i], FRAME_Y[i]);
+		}
+		for (int i = 0; i < CARDBACK_NUM; i++)
+		{
+			ImageManager.renderCardBack(CARDBACK_X + (CARDBACK_NUM - 1 - i), CARDBACK_Y + (CARDBACK_NUM - 1 - i));
+		}
 	}
 }
