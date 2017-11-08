@@ -88,7 +88,8 @@ public class Card extends GameObject
 	{
 		if (angle >= Math.PI / 2 && angle < Math.PI * 3 / 2)
 		{
-			ImageManager.getCardBack().draw(x + WIDTH / 2 - (float) (WIDTH * Math.cos(angle)) / 2, y, (float) (WIDTH * Math.cos(angle)), HEIGHT);
+			ImageManager.getCardBack().draw(x + WIDTH / 2 - (float) Math.abs(WIDTH * Math.cos(angle)) / 2, y, (float) Math.abs(WIDTH * Math.cos(angle)), HEIGHT);
+			//System.out.println(x + " " + y);
 		}
 		else
 		{
@@ -129,7 +130,7 @@ public class Card extends GameObject
 	public void putdownCard(GameContainer gc)
 	{
 		isMoveAuto = true;
-		isHoldCard = false;
+		isHoldCard = true;
 	}
 
 	/**
@@ -153,11 +154,6 @@ public class Card extends GameObject
 			x = putX;
 			y = putY;
 			isMoveAuto = false;
-			isHoldCard = true; 
-			if (angle != 0)
-			{
-				startRotationAuto();
-			}
 		}
 	}
 
@@ -178,6 +174,7 @@ public class Card extends GameObject
 		if (angle >= Math.PI * 2)
 		{
 			angle = 0;
+			isHoldCard = true;
 			isRotationAuto = false;
 		}
 	}

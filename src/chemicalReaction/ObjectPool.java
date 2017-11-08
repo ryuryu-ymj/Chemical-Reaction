@@ -119,6 +119,10 @@ public class ObjectPool
 			{
 				card[i].startMoveAuto();
 			}
+			else if ((Play.counter - 150) / (i + 1) == 10)
+			{
+				card[i].startRotationAuto();
+			}
 		}
 	}
 

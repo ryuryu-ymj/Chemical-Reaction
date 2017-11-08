@@ -18,7 +18,7 @@ public class Table extends GameObject
 	/** テーブルの山札の数 */
 	public static final int CARDBACK_NUM = 10;
 	/** 山札のx座標 */
-	public static final int CARDBACK_X = 100;
+	public static final int CARDBACK_X = 50;
 	/** 山札のy座標 */
 	public static final int CARDBACK_Y = Play.DISPLAY_HEIGHT / 2 - Card.HEIGHT / 2;
 
@@ -35,7 +35,7 @@ public class Table extends GameObject
 		}
 	}
 
-	@Override 
+	@Override
 	public void update(GameContainer gc)
 	{
 	}
@@ -51,5 +51,6 @@ public class Table extends GameObject
 		{
 			ImageManager.renderCardBack(CARDBACK_X + (CARDBACK_NUM - 1 - i), CARDBACK_Y + (CARDBACK_NUM - 1 - i));
 		}
+		//System.out.println(CARDBACK_X + " " + CARDBACK_Y);
 	}
 }
