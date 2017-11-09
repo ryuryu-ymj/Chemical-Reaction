@@ -124,8 +124,10 @@ public class Card extends GameObject
 	/**
 	 * カードを置く
 	 */
-	public void putdownCard(GameContainer gc)
+	public void putdownCard(GameContainer gc, float putX, float putY)
 	{
+		this.putX = putX;
+		this.putY = putY;
 		isMoveAuto = true;
 		isHoldCard = true;
 	}
@@ -215,5 +217,21 @@ public class Card extends GameObject
 	public int getNum()
 	{
 		return num;
+	}
+
+	/**
+	 *
+	 * @return そのカードが置かれている座標
+	 */
+	public float getPutX() {
+		return putX;
+	}
+
+	/**
+	 *
+	 * @return そのカードが置かれている座標
+	 */
+	public float getPutY() {
+		return putY;
 	}
 }

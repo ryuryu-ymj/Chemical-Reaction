@@ -16,7 +16,8 @@ public class ObjectPool
 	private static Table table;
 
 	/** 画面上のカードの最大値 */
-	public static final int CARD_MAX = 15;
+	public static final int CARD_MAX = 8;
+	private int[] numOfCardInFrame = new int[Table.FRAME_NUM];
 
 	ObjectPool()
 	{
@@ -102,7 +103,20 @@ public class ObjectPool
 			}
 			else
 			{
-				card[Card.holdCardNum].putdownCard(gc);
+				for (int i = 0; i < Table.FRAME_NUM ; i++)
+				{
+					if (gc.getInput().getMouseX() > Table.FRAME_X[i] && gc.getInput().getMouseX() < Table.FRAME_X[i] + Card.WIDTH)
+					{
+						if (gc.getInput().getMouseY() > Table.FRAME_Y[i] && gc.getInput().getMouseY() < Table.FRAME_Y[i] + Card.HEIGHT)
+						{
+							card[Card.holdCardNum].putdownCard(gc, Table.FRAME_X[i], Table.FRAME_Y[i]);
+							card[numOfCardInFrame[i]].putdownCard(gc, Table.FRAME_X[numOfCardInFrame[Card.holdCardNum]], Table.FRAME_Y[numOfCardInFrame[Card.holdCardNum]]);
+							numOfCardInFrame[i] = Card.holdCardNum;
+							numOfCardInFrame[Card.holdCardNum] = i;
+						}
+					}
+				}
+				card[Card.holdCardNum].putdownCard(gc, card[Card.holdCardNum].getPutX(), card[Card.holdCardNum].getPutY());
 				Card.holdCardNum = -1;
 			}
 		}
@@ -118,6 +132,7 @@ public class ObjectPool
 			if ((Play.counter - 20) / (i + 1) == 10)
 			{
 				card[i].startMoveAuto();
+				numOfCardInFrame[i] = i;
 			}
 			else if ((Play.counter - 150) / (i + 1) == 10)
 			{

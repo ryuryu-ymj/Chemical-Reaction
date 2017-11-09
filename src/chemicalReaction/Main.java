@@ -19,7 +19,9 @@ public class Main extends BasicGame
 	/** プレイ画面 */
 	Play play;
 	/** ゲームシーン */
-	private int state;
+	private State state;
+	//
+	Element element = Element.H;
 
 	/**
 	 * コンストラクタ
@@ -40,7 +42,7 @@ public class Main extends BasicGame
 	{
 		title = new Title();
 		play = new Play();
-		state = 1;
+		state = State.Play;
 	}
 
 	/**
@@ -51,13 +53,16 @@ public class Main extends BasicGame
 	{
 		switch (state)
 		{
-			case 0:
+			case Title:
 				title.update(gc, delta);
 				break;
-			case 1:
+			case Play:
 				play.update(gc, delta);
 				break;
 		}
+
+		//
+		//System.out.println(element.getName());
 	}
 
 	/**
@@ -71,10 +76,10 @@ public class Main extends BasicGame
 
 		switch (state)
 		{
-			case 0:
+			case Title:
 				title.render(gc, g);
 				break;
-			case 1:
+			case Play:
 				play.render(gc, g);
 				break;
 		}
