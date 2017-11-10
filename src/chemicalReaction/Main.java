@@ -20,8 +20,6 @@ public class Main extends BasicGame
 	Play play;
 	/** ゲームシーン */
 	private State state;
-	//
-	Element element = Element.H;
 
 	/**
 	 * コンストラクタ
@@ -60,9 +58,6 @@ public class Main extends BasicGame
 				play.update(gc, delta);
 				break;
 		}
-
-		//
-		//System.out.println(element.getName());
 	}
 
 	/**

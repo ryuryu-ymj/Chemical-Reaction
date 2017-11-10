@@ -97,6 +97,7 @@ public class ObjectPool
 		}
 		if (Card.holdCardNum != -1)
 		{
+			i:
 			if (gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON))
 			{
 				card[Card.holdCardNum].shiftCard(gc);
@@ -113,9 +114,13 @@ public class ObjectPool
 							card[numOfCardInFrame[i]].putdownCard(gc, Table.FRAME_X[numOfCardInFrame[Card.holdCardNum]], Table.FRAME_Y[numOfCardInFrame[Card.holdCardNum]]);
 							numOfCardInFrame[i] = Card.holdCardNum;
 							numOfCardInFrame[Card.holdCardNum] = i;
+							System.out.println(numOfCardInFrame[i] + "=" + Card.holdCardNum + " " + Card.holdCardNum + "=" + i);
+							Card.holdCardNum = -1;
+							break i;
 						}
 					}
 				}
+				//System.out.println();
 				card[Card.holdCardNum].putdownCard(gc, card[Card.holdCardNum].getPutX(), card[Card.holdCardNum].getPutY());
 				Card.holdCardNum = -1;
 			}
@@ -127,7 +132,7 @@ public class ObjectPool
 	 */
 	public void dealCards()
 	{
-		for (int i = 0; i < card.length; i++)
+		for (int i = 0; i < Table.FRAME_NUM; i++)
 		{
 			if ((Play.counter - 20) / (i + 1) == 10)
 			{
