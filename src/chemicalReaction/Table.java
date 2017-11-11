@@ -11,6 +11,8 @@ public class Table extends GameObject
 	public static final int[] FRAME_X = new int[FRAME_NUM];
 	/** カードフレームのy座標 */
 	public static final int[] FRAME_Y = new int[FRAME_NUM];
+	/**  */
+	private static int[] numOfCardInFrame = new int[FRAME_NUM];
 
 	/** テーブルの山札の数 */
 	public static final int CARDBACK_NUM = 10;
@@ -48,6 +50,5 @@ public class Table extends GameObject
 		{
 			ImageManager.renderCardBack(CARDBACK_X + (CARDBACK_NUM - 1 - i), CARDBACK_Y + (CARDBACK_NUM - 1 - i));
 		}
-		//System.out.println(CARDBACK_X + " " + CARDBACK_Y);
 	}
 }

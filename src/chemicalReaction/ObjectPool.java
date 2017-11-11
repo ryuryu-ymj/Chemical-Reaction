@@ -1,6 +1,5 @@
 package chemicalReaction;
 
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -12,6 +11,7 @@ import org.newdawn.slick.Input;
  */
 public class ObjectPool
 {
+
 	private static Card[] card;
 	private static Table table;
 
@@ -112,18 +112,24 @@ public class ObjectPool
 						{
 							card[Card.holdCardNum].putdownCard(gc, Table.FRAME_X[i], Table.FRAME_Y[i]);
 							card[numOfCardInFrame[i]].putdownCard(gc, Table.FRAME_X[numOfCardInFrame[Card.holdCardNum]], Table.FRAME_Y[numOfCardInFrame[Card.holdCardNum]]);
-							numOfCardInFrame[i] = Card.holdCardNum;
-							numOfCardInFrame[Card.holdCardNum] = i;
-							System.out.println(numOfCardInFrame[i] + "=" + Card.holdCardNum + " " + Card.holdCardNum + "=" + i);
+							//System.out.println(numOfCardInFrame[i] + "=" + Card.holdCardNum + " " + Card.holdCardNum + "=" + i);
+							int n = numOfCardInFrame[i];
+							numOfCardInFrame[i] = numOfCardInFrame[Card.holdCardNum];
+							numOfCardInFrame[Card.holdCardNum] = n;
 							Card.holdCardNum = -1;
 							break i;
 						}
 					}
 				}
 				//System.out.println();
-				card[Card.holdCardNum].putdownCard(gc, card[Card.holdCardNum].getPutX(), card[Card.holdCardNum].getPutY());
-				Card.holdCardNum = -1;
+				//card[Card.holdCardNum].putdownCard(gc, card[Card.holdCardNum].getPutX(), card[Card.holdCardNum].getPutY());
+				//Card.holdCardNum = -1;
 			}
+			for (int i : numOfCardInFrame)
+			{
+				System.out.print(i);
+			}
+			System.out.println();
 		}
 	}
 

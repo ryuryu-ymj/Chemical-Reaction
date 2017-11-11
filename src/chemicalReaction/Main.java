@@ -20,6 +20,7 @@ public class Main extends BasicGame
 	Play play;
 	/** ゲームシーン */
 	private State state;
+	Element element;
 
 	/**
 	 * コンストラクタ
@@ -78,6 +79,8 @@ public class Main extends BasicGame
 				play.render(gc, g);
 				break;
 		}
+
+		System.out.println(element.He.getSymbol());
 	}
 
 	/**
