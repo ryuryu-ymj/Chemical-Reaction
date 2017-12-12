@@ -112,11 +112,24 @@ public class ObjectPool
 						{
 							card[Card.holdCardNum].putdownCard(gc, Table.FRAME_X[i], Table.FRAME_Y[i]);
 							card[numOfCardInFrame[i]].putdownCard(gc, Table.FRAME_X[numOfCardInFrame[Card.holdCardNum]], Table.FRAME_Y[numOfCardInFrame[Card.holdCardNum]]);
-							//System.out.println(numOfCardInFrame[i] + "=" + Card.holdCardNum + " " + Card.holdCardNum + "=" + i);
+							System.out.print(Card.holdCardNum + "⇔" + numOfCardInFrame[i] + "  ");
 							int n = numOfCardInFrame[i];
-							numOfCardInFrame[i] = numOfCardInFrame[Card.holdCardNum];
-							numOfCardInFrame[Card.holdCardNum] = n;
+							numOfCardInFrame[i] = Card.holdCardNum;
+							g:
+							for (int i1 : numOfCardInFrame)
+							{
+								if (i1 == Card.holdCardNum)
+								{
+									i1 = n;
+									break g;
+								}
+							}
 							Card.holdCardNum = -1;
+							for (int i1 : numOfCardInFrame)
+							{
+								System.out.print(i1);
+							}
+							System.out.println();
 							break i;
 						}
 					}
@@ -125,11 +138,6 @@ public class ObjectPool
 				//card[Card.holdCardNum].putdownCard(gc, card[Card.holdCardNum].getPutX(), card[Card.holdCardNum].getPutY());
 				//Card.holdCardNum = -1;
 			}
-			for (int i : numOfCardInFrame)
-			{
-				System.out.print(i);
-			}
-			System.out.println();
 		}
 	}
 

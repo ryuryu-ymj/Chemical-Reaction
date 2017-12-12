@@ -12,7 +12,7 @@ public class Table extends GameObject
 	/** カードフレームのy座標 */
 	public static final int[] FRAME_Y = new int[FRAME_NUM];
 	/**  */
-	private static int[] numOfCardInFrame = new int[FRAME_NUM];
+	//private static int[] numOfCardInFrame = new int[FRAME_NUM];
 
 	/** テーブルの山札の数 */
 	public static final int CARDBACK_NUM = 10;
@@ -31,6 +31,7 @@ public class Table extends GameObject
 		{
 			FRAME_X[i] = (Card.WIDTH) * i + 20;
 			FRAME_Y[i] = Play.DISPLAY_HEIGHT - Card.HEIGHT - 50;
+			//System.out.println(FRAME_X[i]);
 		}
 	}
 
@@ -49,6 +50,63 @@ public class Table extends GameObject
 		for (int i = 0; i < CARDBACK_NUM; i++)
 		{
 			ImageManager.renderCardBack(CARDBACK_X + (CARDBACK_NUM - 1 - i), CARDBACK_Y + (CARDBACK_NUM - 1 - i));
+		}
+	}
+
+	public enum CardPosition
+	{
+		handCard1(20, 623),
+		handCard2(190, 623),
+		handCard3(360, 623),
+		handCard4(530, 623),
+		handCard5(700, 623),
+		handCard6(870, 623),
+		handCard7(1040, 623),
+		handCard8(1210, 623),
+		;
+
+		/** ポジションの左上の座標 */
+		private int positionX, positionY;
+		/** ポジションに置かれているカードの番号 */
+		private int numOfHavingCard;
+
+		private CardPosition(int positionX, int positionY)
+		{
+			this.positionX = positionX;
+			this.positionY = positionY;
+			numOfHavingCard = 0;
+		}
+
+		/**
+		 *
+		 * @return ポジションの左上のx座標
+		 */
+		public int getPositionX()
+		{
+			return positionX;
+		}
+
+		/**
+		 *
+		 * @return ポジションの左上のy座標
+		 */
+		public int getPositionY()
+		{
+			return positionY;
+		}
+
+		/**
+		 *
+		 * @return ポジションに置かれているカードの番号
+		 */
+		public int getNumOfHavingCard()
+		{
+			return numOfHavingCard;
+		}
+
+		public CardPosition getHandCardPosition(int handCardNum)
+		{
+			return values()[handCardNum];
 		}
 	}
 }

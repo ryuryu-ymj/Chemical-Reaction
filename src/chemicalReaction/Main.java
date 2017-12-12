@@ -80,7 +80,7 @@ public class Main extends BasicGame
 				break;
 		}
 
-		System.out.println(element.He.getSymbol());
+		//System.out.println(element.He.getSymbol());
 	}
 
 	/**
