@@ -111,9 +111,16 @@ public class ObjectPool
 						if (gc.getInput().getMouseY() > Table.FRAME_Y[i] && gc.getInput().getMouseY() < Table.FRAME_Y[i] + Card.HEIGHT)
 						{
 							card[Card.holdCardNum].putdownCard(gc, Table.FRAME_X[i], Table.FRAME_Y[i]);
-							card[numOfCardInFrame[i]].putdownCard(gc, Table.FRAME_X[numOfCardInFrame[Card.holdCardNum]], Table.FRAME_Y[numOfCardInFrame[Card.holdCardNum]]);
-							System.out.print(Card.holdCardNum + "⇔" + numOfCardInFrame[i] + "  ");
-							int n = numOfCardInFrame[i];
+							//for (int j = 0; j < Table.FRAME_NUM; j++)
+							{
+								//if (card[j]. == i)
+								{
+									
+								}
+							}
+							//card[numOfCardInFrame[i]].putdownCard(gc, Table.FRAME_X[numOfCardInFrame[Card.holdCardNum]], Table.FRAME_Y[numOfCardInFrame[Card.holdCardNum]]);
+							//System.out.print(Card.holdCardNum + "⇔" + numOfCardInFrame[i] + "  ");
+							/*int n = numOfCardInFrame[i];
 							numOfCardInFrame[i] = Card.holdCardNum;
 							g:
 							for (int i1 : numOfCardInFrame)
@@ -123,13 +130,13 @@ public class ObjectPool
 									i1 = n;
 									break g;
 								}
-							}
+							}*/
 							Card.holdCardNum = -1;
 							for (int i1 : numOfCardInFrame)
 							{
-								System.out.print(i1);
+								//System.out.print(i1);
 							}
-							System.out.println();
+							//System.out.println();
 							break i;
 						}
 					}
