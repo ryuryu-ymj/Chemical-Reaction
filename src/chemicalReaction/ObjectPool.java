@@ -4,6 +4,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
+import chemicalReaction.Table.CardPosition;
+
 /**
  * ゲームオブジェクトの管理クラス.
  * オブジェクトのインスタンスを持ち,
@@ -60,15 +62,16 @@ public class ObjectPool
 	 * @param symbol 元素記号および分子式、組成式
 	 * @param x x成分
 	 * @param y y成分
+	 * @param position カードの位置
 	 * @return cardの配列番号
 	 */
-	public static int newCard(int num, String symbol, int x, int y, int putX, int putY)
+	public static int newCard(int num, String symbol, int x, int y, CardPosition position)
 	{
 		for (int i = 0; i < CARD_MAX; i++)
 		{
 			if (!card[i].active)
 			{
-				card[i].activate(num, symbol, x, y, putX, putY);
+				card[i].activate(num, symbol, x, y, position);
 				return i;
 			}
 		}
@@ -104,46 +107,19 @@ public class ObjectPool
 			}
 			else
 			{
-				for (int i = 0; i < Table.FRAME_NUM ; i++)
+				card[Card.holdCardNum].putdownCard(card[Card.holdCardNum].getPosition());
+				/*for (int i = 0; i < Table.FRAME_NUM ; i++)
 				{
 					if (gc.getInput().getMouseX() > Table.FRAME_X[i] && gc.getInput().getMouseX() < Table.FRAME_X[i] + Card.WIDTH)
 					{
 						if (gc.getInput().getMouseY() > Table.FRAME_Y[i] && gc.getInput().getMouseY() < Table.FRAME_Y[i] + Card.HEIGHT)
 						{
-							card[Card.holdCardNum].putdownCard(gc, Table.FRAME_X[i], Table.FRAME_Y[i]);
-							//for (int j = 0; j < Table.FRAME_NUM; j++)
-							{
-								//if (card[j]. == i)
-								{
-									
-								}
-							}
-							//card[numOfCardInFrame[i]].putdownCard(gc, Table.FRAME_X[numOfCardInFrame[Card.holdCardNum]], Table.FRAME_Y[numOfCardInFrame[Card.holdCardNum]]);
-							//System.out.print(Card.holdCardNum + "⇔" + numOfCardInFrame[i] + "  ");
-							/*int n = numOfCardInFrame[i];
-							numOfCardInFrame[i] = Card.holdCardNum;
-							g:
-							for (int i1 : numOfCardInFrame)
-							{
-								if (i1 == Card.holdCardNum)
-								{
-									i1 = n;
-									break g;
-								}
-							}*/
+							card[Card.holdCardNum].putdownCard(card[Card.holdCardNum].getPosition());
 							Card.holdCardNum = -1;
-							for (int i1 : numOfCardInFrame)
-							{
-								//System.out.print(i1);
-							}
-							//System.out.println();
 							break i;
 						}
 					}
-				}
-				//System.out.println();
-				//card[Card.holdCardNum].putdownCard(gc, card[Card.holdCardNum].getPutX(), card[Card.holdCardNum].getPutY());
-				//Card.holdCardNum = -1;
+				}*/
 			}
 		}
 	}

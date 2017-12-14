@@ -31,7 +31,7 @@ public class Table extends GameObject
 		{
 			FRAME_X[i] = (Card.WIDTH) * i + 20;
 			FRAME_Y[i] = Play.DISPLAY_HEIGHT - Card.HEIGHT - 50;
-			//System.out.println(FRAME_X[i]);
+			System.out.println(CARDBACK_Y);
 		}
 	}
 
@@ -68,6 +68,8 @@ public class Table extends GameObject
 		handCard6(870, 623),
 		handCard7(1040, 623),
 		handCard8(1210, 623),
+		/** 山札 */
+		deckCard(50, 337),
 		;
 
 		/** ポジションの左上の座標 */
@@ -114,7 +116,7 @@ public class Table extends GameObject
 		 * @param handCardNum 手札の番号　左から0~
 		 * @return 指定された手札の位置
 		 */
-		public CardPosition getHandCardPosition(int handCardNum)
+		public static CardPosition getHandCardPosition(int handCardNum)
 		{
 			if (handCardNum >= 0 && handCardNum <= FRAME_NUM)
 			{

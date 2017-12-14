@@ -3,6 +3,8 @@ package chemicalReaction;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
+import chemicalReaction.Table.CardPosition;
+
 public class Card extends GameObject
 {
 	/**
@@ -36,7 +38,11 @@ public class Card extends GameObject
 	/**
 	 * そのカードが置かれている座標
 	 */
-	private float putX, putY;
+	//private float putX, putY;
+	/**
+	 * そのカードが置かれている位置
+	 */
+	private CardPosition position;
 	/**
 	 * そのカードをput座標まで自動で動かすかどうか
 	 */
@@ -71,7 +77,7 @@ public class Card extends GameObject
 	{
 		if (isMoveAuto)
 		{
-			moveCardAuto(putX, putY, 20);
+			moveCardAuto(position.getPositionX(), position.getPositionY(), 20);
 		}
 
 		if (isRotationAuto)
@@ -123,11 +129,11 @@ public class Card extends GameObject
 
 	/**
 	 * カードを置く
+	 * @param position カードが置かれる位置
 	 */
-	public void putdownCard(GameContainer gc, float putX, float putY)
+	public void putdownCard(CardPosition position)
 	{
-		this.putX = putX;
-		this.putY = putY;
+		this.position = position;
 		isMoveAuto = true;
 		isHoldCard = true;
 	}
@@ -143,15 +149,15 @@ public class Card extends GameObject
 		double moveAngle = Math.atan2(goalY - y, goalX - x);
 		float speedX = (float) (moveSpeed * Math.cos(moveAngle));
 		float speedY = (float) (moveSpeed * Math.sin(moveAngle));
-		if ((putX - x) * (putX - x - speedX) > 0 && (putY - y) * (putY - y - speedY) > 0)
+		if ((goalX - x) * (goalX - x - speedX) > 0 && (goalY - y) * (goalY - y - speedY) > 0)
 		{
 			x += speedX;
 			y += speedY;
 		}
 		else // 通り過ぎを防ぐ
 		{
-			x = putX;
-			y = putY;
+			x = goalX;
+			y = goalY;
 			isMoveAuto = false;
 		}
 	}
@@ -195,7 +201,7 @@ public class Card extends GameObject
 	 * @param putX そのカードが置かれている座標
 	 * @param putY そのカードが置かれている座標
 	 */
-	public void activate(int num, String symbol, int x, int y, int putX, int putY)
+	public void activate(int num, String symbol, int x, int y, CardPosition position)
 	{
 		active = true;
 		isMoveAuto = false;
@@ -206,8 +212,7 @@ public class Card extends GameObject
 		this.symbol = symbol;
 		this.x = x;
 		this.y = y;
-		this.putX = putX;
-		this.putY = putY;
+		this.position = position;
 	}
 
 	/**
@@ -221,17 +226,10 @@ public class Card extends GameObject
 
 	/**
 	 *
-	 * @return そのカードが置かれている座標
+	 * @return そのカードが置かれている位置
 	 */
-	public float getPutX() {
-		return putX;
-	}
-
-	/**
-	 *
-	 * @return そのカードが置かれている座標
-	 */
-	public float getPutY() {
-		return putY;
+	public CardPosition getPosition()
+	{
+		return position;
 	}
 }
