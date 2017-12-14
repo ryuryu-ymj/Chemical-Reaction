@@ -107,19 +107,20 @@ public class ObjectPool
 			}
 			else
 			{
-				card[Card.holdCardNum].putdownCard(card[Card.holdCardNum].getPosition());
-				/*for (int i = 0; i < Table.FRAME_NUM ; i++)
+				for (int i = 0; i < Table.FRAME_NUM ; i++)
 				{
 					if (gc.getInput().getMouseX() > Table.FRAME_X[i] && gc.getInput().getMouseX() < Table.FRAME_X[i] + Card.WIDTH)
 					{
 						if (gc.getInput().getMouseY() > Table.FRAME_Y[i] && gc.getInput().getMouseY() < Table.FRAME_Y[i] + Card.HEIGHT)
 						{
-							card[Card.holdCardNum].putdownCard(card[Card.holdCardNum].getPosition());
+							card[Card.holdCardNum].putdownCard(CardPosition.getHandCardPosition(i));
 							Card.holdCardNum = -1;
 							break i;
 						}
 					}
-				}*/
+				}
+				card[Card.holdCardNum].putdownCard(card[Card.holdCardNum].getPosition());
+				Card.holdCardNum = -1;
 			}
 		}
 	}
