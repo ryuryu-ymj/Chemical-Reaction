@@ -53,6 +53,11 @@ public class Table extends GameObject
 		}
 	}
 
+	/**
+	 * カードの位置
+	 * @author ryuryu
+	 *
+	 */
 	public enum CardPosition
 	{
 		handCard1(20, 623),
@@ -104,9 +109,18 @@ public class Table extends GameObject
 			return numOfHavingCard;
 		}
 
+		/**
+		 * 手札の位置を返す
+		 * @param handCardNum 手札の番号　左から0~
+		 * @return 指定された手札の位置
+		 */
 		public CardPosition getHandCardPosition(int handCardNum)
 		{
-			return values()[handCardNum];
+			if (handCardNum >= 0 && handCardNum <= FRAME_NUM)
+			{
+				return values()[handCardNum];
+			}
+			return null;
 		}
 	}
 }
