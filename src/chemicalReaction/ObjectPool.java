@@ -113,7 +113,17 @@ public class ObjectPool
 					{
 						if (gc.getInput().getMouseY() > Table.FRAME_Y[i] && gc.getInput().getMouseY() < Table.FRAME_Y[i] + Card.HEIGHT)
 						{
+							CardPosition holdCardPositon = card[Card.holdCardNum].getPosition();
 							card[Card.holdCardNum].putdownCard(CardPosition.getHandCardPosition(i));
+							j:
+							for (int j = 0; j < Table.FRAME_NUM; j++)
+							{
+								if (card[j].getPosition() == CardPosition.getHandCardPosition(i) && j != Card.holdCardNum)
+								{
+									card[j].putdownCard(holdCardPositon);
+									break j;
+								}
+							}
 							Card.holdCardNum = -1;
 							break i;
 						}
