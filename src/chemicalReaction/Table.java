@@ -5,21 +5,19 @@ import org.newdawn.slick.Graphics;
 
 public class Table extends GameObject
 {
-	/** テーブルのカードフレームの数 */
-	public static final int FRAME_NUM = 8;
+	/** テーブルの手札の数 */
+	public static final int HANDCARD_NUM = 8;
 	/** カードフレームのx座標 */
-	public static final int[] FRAME_X = new int[FRAME_NUM];
+	//public static final int[] FRAME_X = new int[FRAME_NUM];
 	/** カードフレームのy座標 */
-	public static final int[] FRAME_Y = new int[FRAME_NUM];
-	/**  */
-	//private static int[] numOfCardInFrame = new int[FRAME_NUM];
+	//public static final int[] FRAME_Y = new int[FRAME_NUM];
 
 	/** テーブルの山札の数 */
 	public static final int CARDBACK_NUM = 10;
 	/** 山札のx座標 */
-	public static final int CARDBACK_X = 50;
+	//public static final int CARDBACK_X = 50;
 	/** 山札のy座標 */
-	public static final int CARDBACK_Y = Play.DISPLAY_HEIGHT / 2 - Card.HEIGHT / 2;
+	//public static final int CARDBACK_Y = Play.DISPLAY_HEIGHT / 2 - Card.HEIGHT / 2;
 
 	/**
 	 * コンストラクタ
@@ -27,11 +25,11 @@ public class Table extends GameObject
 	Table()
 	{
 		active = true;
-		for (int i = 0; i < FRAME_NUM; i++)
+		/*for (int i = 0; i < FRAME_NUM; i++)
 		{
-			FRAME_X[i] = (Card.WIDTH) * i + 20;
+			//FRAME_X[i] = (Card.WIDTH) * i + 20;
 			FRAME_Y[i] = Play.DISPLAY_HEIGHT - Card.HEIGHT - 50;
-		}
+		}*/
 	}
 
 	@Override
@@ -42,13 +40,13 @@ public class Table extends GameObject
 	@Override
 	public void render(Graphics g)
 	{
-		for (int i = 0; i < FRAME_NUM; i++)
+		for (int i = 0; i < HANDCARD_NUM; i++)
 		{
-			ImageManager.renderCardFrame(FRAME_X[i], FRAME_Y[i]);
+			ImageManager.renderCardFrame(CardPosition.getHandCardPosition(i).positionX, CardPosition.getHandCardPosition(i).positionY);
 		}
 		for (int i = 0; i < CARDBACK_NUM; i++)
 		{
-			ImageManager.renderCardBack(CARDBACK_X + (CARDBACK_NUM - 1 - i), CARDBACK_Y + (CARDBACK_NUM - 1 - i));
+			ImageManager.renderCardBack(CardPosition.deckCard.positionX + (CARDBACK_NUM - 1 - i), CardPosition.deckCard.positionY + (CARDBACK_NUM - 1 - i));
 		}
 	}
 
@@ -57,7 +55,7 @@ public class Table extends GameObject
 	 * @author ryuryu
 	 *
 	 */
-	public enum CardPosition
+	public static enum CardPosition
 	{
 		handCard1(20, 623),
 		handCard2(190, 623),
@@ -111,17 +109,26 @@ public class Table extends GameObject
 		}
 
 		/**
-		 * 手札の位置を返す
+		 * 指定された手札の位置を返す
 		 * @param handCardNum 手札の番号　左から0~
 		 * @return 指定された手札の位置
 		 */
 		public static CardPosition getHandCardPosition(int handCardNum)
 		{
-			if (handCardNum >= 0 && handCardNum <= FRAME_NUM)
+			if (handCardNum >= 0 && handCardNum <= HANDCARD_NUM)
 			{
 				return values()[handCardNum];
 			}
 			return null;
+		}
+
+		/**
+		 * 山札の位置を返す
+		 * @return 山札の位置
+		 */
+		public static CardPosition getDeckCardPosition()
+		{
+			return deckCard;
 		}
 	}
 }

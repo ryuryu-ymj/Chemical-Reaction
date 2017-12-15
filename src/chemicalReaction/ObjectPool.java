@@ -18,7 +18,7 @@ public class ObjectPool
 
 	/** 画面上のカードの最大値 */
 	public static final int CARD_MAX = 8;
-	private int[] numOfCardInFrame = new int[Table.FRAME_NUM];
+	private int[] numOfCardInFrame = new int[Table.HANDCARD_NUM];
 
 	ObjectPool()
 	{
@@ -106,15 +106,14 @@ public class ObjectPool
 			}
 			else // カードを置く
 			{
-				for (int i = 0; i < Table.FRAME_NUM ; i++)
+				for (int i = 0; i < Table.HANDCARD_NUM ; i++)
 				{
-					if (gc.getInput().getMouseX() > Table.FRAME_X[i] && gc.getInput().getMouseX() < Table.FRAME_X[i] + Card.WIDTH)
+					if (gc.getInput().getMouseX() > CardPosition.getHandCardPosition(i).getPositionX() && gc.getInput().getMouseX() < CardPosition.getHandCardPosition(i).getPositionX() + Card.WIDTH)
 					{
-						if (gc.getInput().getMouseY() > Table.FRAME_Y[i] && gc.getInput().getMouseY() < Table.FRAME_Y[i] + Card.HEIGHT)
+						if (gc.getInput().getMouseY() > CardPosition.getHandCardPosition(i).getPositionY() && gc.getInput().getMouseY() < CardPosition.getHandCardPosition(i).getPositionY() + Card.HEIGHT)
 						{
-							//CardPosition holdCardPositon = card[Card.holdCardNum].getPosition();
 							j:
-							for (int j = 0; j < Table.FRAME_NUM; j++)
+							for (int j = 0; j < Table.HANDCARD_NUM; j++)
 							{
 								if (card[j].getPosition() == CardPosition.getHandCardPosition(i) && j != Card.holdCardNum)
 								{
@@ -139,7 +138,7 @@ public class ObjectPool
 	 */
 	public void dealCards()
 	{
-		for (int i = 0; i < Table.FRAME_NUM; i++)
+		for (int i = 0; i < Table.HANDCARD_NUM; i++)
 		{
 			if ((Play.counter - 20) / (i + 1) == 10)
 			{

@@ -199,8 +199,7 @@ public class Card extends GameObject
 	 * @param symbol 元素記号および分子式、組成式
 	 * @param x x成分 最初に表示させるカードの左上の頂点
 	 * @param y y成分 最初に表示させるカードの左上の頂点
-	 * @param putX そのカードが置かれている座標
-	 * @param putY そのカードが置かれている座標
+	 * @param position カードが置かれる場所
 	 */
 	public void activate(int num, String symbol, int x, int y, CardPosition position)
 	{

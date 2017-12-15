@@ -30,9 +30,9 @@ public class Play extends GameState
 	{
 		super();
 		objectPool = new ObjectPool();
-		for (int i = 0; i < Table.FRAME_NUM; i++)
+		for (int i = 0; i < Table.HANDCARD_NUM; i++)
 		{
-			ObjectPool.newCard(i + 1, "Au", Table.CARDBACK_X, Table.CARDBACK_Y, Table.CardPosition.getHandCardPosition(i));
+			ObjectPool.newCard(i + 1, "Au", Table.CardPosition.deckCard.getPositionX(), Table.CardPosition.deckCard.getPositionY(), Table.CardPosition.getHandCardPosition(i));
 		}
 		gameImage = new ImageManager();
 	}
