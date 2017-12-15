@@ -91,7 +91,7 @@ public class Card extends GameObject
 	{
 		if (angle >= Math.PI / 2 && angle < Math.PI * 3 / 2)
 		{
-			ImageManager.getCardBack().draw(x + WIDTH / 2 - (float) Math.abs(WIDTH * Math.cos(angle)) / 2, y, (float) Math.abs(WIDTH * Math.cos(angle)), HEIGHT);
+			ImageManager.getCardBack().draw(x + WIDTH / 2 - (float) (WIDTH * Math.cos(angle)) / 2, y, (float) (WIDTH * Math.cos(angle)), HEIGHT);
 			//System.out.println(x + " " + y);
 		}
 		else

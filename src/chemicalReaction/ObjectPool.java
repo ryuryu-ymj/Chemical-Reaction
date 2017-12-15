@@ -53,6 +53,11 @@ public class ObjectPool
 	{
 		table.render(g);
 		renderObjects(card, g);
+		// 今つかんでいるカードを再描画
+		if (Card.holdCardNum != -1)
+		{
+			card[Card.holdCardNum].render(g);
+		}
 	}
 
 	/**

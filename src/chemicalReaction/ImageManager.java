@@ -16,11 +16,14 @@ public class ImageManager
 	 * 配列番号＝原子番号
 	 */
 	private static Image[] card;
-
 	/** カードの裏面の画像 */
 	private static Image cardBack;
 	/** カードを置く枠の画像 */
 	private static Image cardFrame;
+	/** ボタン */
+	private static Image button;
+	/** 切り札を出す場 */
+	private static Image field;
 
 	ImageManager()
 	{
@@ -38,12 +41,21 @@ public class ImageManager
 			e.printStackTrace();
 		}
 
-
 		try
 		{
 			SpriteSheet ss = new SpriteSheet("res/img/background.png", Card.WIDTH, Card.HEIGHT);
 			cardBack = ss.getSubImage(1, 0);
 			cardFrame = ss.getSubImage(0, 0);
+			button = ss.getSubImage(2, 0);
+		}
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
+
+		try
+		{
+			field = new Image("res/img/background2.png");
 		}
 		catch (SlickException e)
 		{
@@ -89,6 +101,15 @@ public class ImageManager
 	public static Image getCardBack()
 	{
 		return cardBack;
+	}
+
+	/**
+	 *
+	 * @return ボタンの画像
+	 */
+	public static Image getButton()
+	{
+		return button;
 	}
 
 	/**
