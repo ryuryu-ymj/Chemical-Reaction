@@ -129,7 +129,7 @@ public class Card extends GameObject
 
 	/**
 	 * カードを置く
-	 * @param position カードが置かれる位置
+	 * @param position カードを置く位置
 	 */
 	public void putdownCard(CardPosition position)
 	{
@@ -149,13 +149,14 @@ public class Card extends GameObject
 		double moveAngle = Math.atan2(goalY - y, goalX - x);
 		float speedX = (float) (moveSpeed * Math.cos(moveAngle));
 		float speedY = (float) (moveSpeed * Math.sin(moveAngle));
-		if ((goalX - x) * (goalX - x - speedX) > 0 && (goalY - y) * (goalY - y - speedY) > 0)
+		if ((goalX - x) * (goalX - x - speedX) > 0 || (goalY - y) * (goalY - y - speedY) > 0)
 		{
 			x += speedX;
 			y += speedY;
 		}
 		else // 通り過ぎを防ぐ
 		{
+			//System.out.println(num + " " + (goalX) + " " + (x) + " " + speedX + " " + (goalY) + " " + (y) + " " + speedY);
 			x = goalX;
 			y = goalY;
 			isMoveAuto = false;

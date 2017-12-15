@@ -31,7 +31,6 @@ public class Table extends GameObject
 		{
 			FRAME_X[i] = (Card.WIDTH) * i + 20;
 			FRAME_Y[i] = Play.DISPLAY_HEIGHT - Card.HEIGHT - 50;
-			System.out.println(CARDBACK_Y);
 		}
 	}
 

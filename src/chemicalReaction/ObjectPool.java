@@ -13,7 +13,6 @@ import chemicalReaction.Table.CardPosition;
  */
 public class ObjectPool
 {
-
 	private static Card[] card;
 	private static Table table;
 
@@ -80,7 +79,7 @@ public class ObjectPool
 
 	public void moveCards(GameContainer gc)
 	{
-		// カードをつかむ、移動させる、置く
+		// カードをつかむ
 		for (int i = 0; i < CARD_MAX; i++)
 		{
 			if (gc.getInput().getMouseX() > card[i].x + Card.SPACE_BREADTH && gc.getInput().getMouseX() < card[i].x + Card.WIDTH - Card.SPACE_BREADTH)
@@ -101,11 +100,11 @@ public class ObjectPool
 		if (Card.holdCardNum != -1)
 		{
 			i:
-			if (gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON))
+			if (gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) // カードを移動させる
 			{
 				card[Card.holdCardNum].shiftCard(gc);
 			}
-			else
+			else // カードを置く
 			{
 				for (int i = 0; i < Table.FRAME_NUM ; i++)
 				{
@@ -113,17 +112,17 @@ public class ObjectPool
 					{
 						if (gc.getInput().getMouseY() > Table.FRAME_Y[i] && gc.getInput().getMouseY() < Table.FRAME_Y[i] + Card.HEIGHT)
 						{
-							CardPosition holdCardPositon = card[Card.holdCardNum].getPosition();
-							card[Card.holdCardNum].putdownCard(CardPosition.getHandCardPosition(i));
+							//CardPosition holdCardPositon = card[Card.holdCardNum].getPosition();
 							j:
 							for (int j = 0; j < Table.FRAME_NUM; j++)
 							{
 								if (card[j].getPosition() == CardPosition.getHandCardPosition(i) && j != Card.holdCardNum)
 								{
-									card[j].putdownCard(holdCardPositon);
+									card[j].putdownCard(card[Card.holdCardNum].getPosition());
 									break j;
 								}
 							}
+							card[Card.holdCardNum].putdownCard(CardPosition.getHandCardPosition(i));
 							Card.holdCardNum = -1;
 							break i;
 						}
