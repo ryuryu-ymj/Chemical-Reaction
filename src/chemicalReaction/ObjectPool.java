@@ -4,7 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
-import chemicalReaction.Table.CardPosition;
+import chemicalReaction.Table.Position;
 
 /**
  * ゲームオブジェクトの管理クラス.
@@ -69,7 +69,7 @@ public class ObjectPool
 	 * @param position カードの位置
 	 * @return cardの配列番号
 	 */
-	public static int newCard(int num, String symbol, int x, int y, CardPosition position)
+	public static int newCard(int num, String symbol, int x, int y, Position position)
 	{
 		for (int i = 0; i < CARD_MAX; i++)
 		{
@@ -111,22 +111,22 @@ public class ObjectPool
 			}
 			else // カードを置く
 			{
-				for (int i = 0; i < Table.HANDCARD_NUM ; i++)
+				for (int i = 0; i < Table.Position.values().length; i++)
 				{
-					if (gc.getInput().getMouseX() > CardPosition.getHandCardPosition(i).getPositionX() && gc.getInput().getMouseX() < CardPosition.getHandCardPosition(i).getPositionX() + Card.WIDTH)
+					if (gc.getInput().getMouseX() > Position.values()[i].getPositionX() && gc.getInput().getMouseX() < Position.values()[i].getPositionX() + Card.WIDTH)
 					{
-						if (gc.getInput().getMouseY() > CardPosition.getHandCardPosition(i).getPositionY() && gc.getInput().getMouseY() < CardPosition.getHandCardPosition(i).getPositionY() + Card.HEIGHT)
+						if (gc.getInput().getMouseY() > Position.values()[i].getPositionY() && gc.getInput().getMouseY() < Position.values()[i].getPositionY() + Card.HEIGHT)
 						{
 							j:
 							for (int j = 0; j < Table.HANDCARD_NUM; j++)
 							{
-								if (card[j].getPosition() == CardPosition.getHandCardPosition(i) && j != Card.holdCardNum)
+								if (card[j].getPosition() == Position.values()[i] && j != Card.holdCardNum)
 								{
 									card[j].putdownCard(card[Card.holdCardNum].getPosition());
 									break j;
 								}
 							}
-							card[Card.holdCardNum].putdownCard(CardPosition.getHandCardPosition(i));
+							card[Card.holdCardNum].putdownCard(Position.values()[i]);
 							Card.holdCardNum = -1;
 							break i;
 						}

@@ -22,7 +22,7 @@ public class ImageManager
 	private static Image cardFrame;
 	/** ボタン */
 	private static Image button;
-	/** 切り札を出す場 */
+	/** 切り札を出す場の枠 */
 	private static Image field;
 
 	ImageManager()
@@ -85,6 +85,26 @@ public class ImageManager
 	}
 
 	/**
+	 * カードを置く枠の画像 を描画する
+	 * @param x 画像を表示するx座標
+	 * @param y 画像を表示するy座標
+	 */
+	public static void renderCardFrame(float x, float y)
+	{
+		cardFrame.draw(x, y);
+	}
+
+	public static void renderField(float x, float y)
+	{
+		field.draw(x, y);
+	}
+
+	public static void renderButton(float x, float y)
+	{
+		button.draw(x, y);
+	}
+
+	/**
 	 *
 	 * @param num 原子番号
 	 * @return カードの表面の画像
@@ -112,13 +132,8 @@ public class ImageManager
 		return button;
 	}
 
-	/**
-	 * カードを置く枠の画像 を描画する
-	 * @param x 画像を表示するx座標
-	 * @param y 画像を表示するy座標
-	 */
-	public static void renderCardFrame(float x, float y)
+	public static Image getField()
 	{
-		cardFrame.draw(x, y);
+		return field;
 	}
 }
