@@ -70,26 +70,26 @@ public class Table extends GameObject
 	 */
 	public static enum Position
 	{
-		HANDCARD1(20, 623),
-		HANDCARD2(190, HANDCARD1.positionY),
-		HANDCARD3(360, HANDCARD1.positionY),
-		HANDCARD4(530, HANDCARD1.positionY),
-		HANDCARD5(700, HANDCARD1.positionY),
-		HANDCARD6(870, HANDCARD1.positionY),
-		HANDCARD7(1040, HANDCARD1.positionY),
-		HANDCARD8(1210, HANDCARD1.positionY),
+		HANDCARD1(20, 623, Card.HEIGHT, Card.WIDTH),
+		HANDCARD2(190, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
+		HANDCARD3(360, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
+		HANDCARD4(530, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
+		HANDCARD5(700, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
+		HANDCARD6(870, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
+		HANDCARD7(1040, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
+		HANDCARD8(1210, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
 		/** 山札 */
-		DECKCARD(50, 337),
+		DECKCARD(50, 337, Card.HEIGHT, Card.WIDTH),
 		/** カードを出す場 */
-		FIELD(220, 337),
+		FIELD(220, 337, 227, 928),
 		/** 捨て札 */
-		THROWCARD(1040, 337),
+		THROWCARD(1040, 337, Card.HEIGHT, Card.WIDTH),
 		;
 
 		/** ポジションの左上の座標 */
 		private int positionX, positionY;
 
-		private Position(int positionX, int positionY)
+		private Position(int positionX, int positionY, int height, int width)
 		{
 			this.positionX = positionX;
 			this.positionY = positionY;
