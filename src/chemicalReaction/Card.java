@@ -3,7 +3,7 @@ package chemicalReaction;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-import chemicalReaction.Table.Position;
+import chemicalReaction.Table.CardPosition;
 
 public class Card extends GameObject
 {
@@ -42,7 +42,7 @@ public class Card extends GameObject
 	/**
 	 * そのカードが置かれている位置
 	 */
-	private Position position;
+	private CardPosition position;
 	/**
 	 * そのカードをput座標まで自動で動かすかどうか
 	 */
@@ -131,7 +131,7 @@ public class Card extends GameObject
 	 * カードを置く
 	 * @param position カードを置く位置
 	 */
-	public void putdownCard(Position position)
+	public void putdownCard(CardPosition position)
 	{
 		this.position = position;
 		isMoveAuto = true;
@@ -201,7 +201,7 @@ public class Card extends GameObject
 	 * @param y y成分 最初に表示させるカードの左上の頂点
 	 * @param position カードが置かれる場所
 	 */
-	public void activate(int num, String symbol, int x, int y, Position position)
+	public void activate(int num, String symbol, int x, int y, CardPosition position)
 	{
 		active = true;
 		isMoveAuto = false;
@@ -228,7 +228,7 @@ public class Card extends GameObject
 	 *
 	 * @return そのカードが置かれている位置
 	 */
-	public Position getPosition()
+	public CardPosition getPosition()
 	{
 		return position;
 	}

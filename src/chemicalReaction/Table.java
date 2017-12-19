@@ -50,17 +50,30 @@ public class Table extends GameObject
 	@Override
 	public void render(Graphics g)
 	{
-		ImageManager.renderField(Position.FIELD.positionX, Position.FIELD.positionY);
+		ImageManager.renderField(CardPosition.FIELD.positionX, CardPosition.FIELD.positionY);
 		ImageManager.renderButton(BUTTON_X, BUTTON_Y);
-		ImageManager.renderCardFrame(Position.THROWCARD.positionX, Position.THROWCARD.positionY);
+		ImageManager.renderCardFrame(CardPosition.THROWCARD.positionX, CardPosition.THROWCARD.positionY);
 		for (int i = 0; i < HANDCARD_NUM; i++)
 		{
-			ImageManager.renderCardFrame(Position.getHandCardPosition(i).positionX, Position.getHandCardPosition(i).positionY);
+			ImageManager.renderCardFrame(CardPosition.getHandCardPosition(i).positionX, CardPosition.getHandCardPosition(i).positionY);
 		}
 		for (int i = 0; i < DECKCARD_NUM; i++)
 		{
-			ImageManager.renderCardBack(Position.DECKCARD.positionX + (DECKCARD_NUM - 1 - i), Position.DECKCARD.positionY + (DECKCARD_NUM - 1 - i));
+			ImageManager.renderCardBack(CardPosition.DECKCARD.positionX + (DECKCARD_NUM - 1 - i), CardPosition.DECKCARD.positionY + (DECKCARD_NUM - 1 - i));
 		}
+	}
+
+	public static enum CardStatus
+	{
+		/** 手札 */
+		HANDCARD,
+		/** 山札 */
+		DECKCARD,
+		/** 場札 */
+		FIELDCARD,
+		/** 捨て札 */
+		THROWCARD,
+		;
 	}
 
 	/**
@@ -68,22 +81,22 @@ public class Table extends GameObject
 	 * @author ryuryu
 	 *
 	 */
-	public static enum Position
+	public static enum CardPosition
 	{
-		HANDCARD1(20, 623, Card.HEIGHT, Card.WIDTH),
-		HANDCARD2(190, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
-		HANDCARD3(360, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
-		HANDCARD4(530, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
-		HANDCARD5(700, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
-		HANDCARD6(870, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
-		HANDCARD7(1040, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
-		HANDCARD8(1210, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH),
+		HANDCARD1(20, 623, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
+		HANDCARD2(190, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
+		HANDCARD3(360, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
+		HANDCARD4(530, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
+		HANDCARD5(700, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
+		HANDCARD6(870, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
+		HANDCARD7(1040, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
+		HANDCARD8(1210, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
 		/** 山札 */
-		DECKCARD(50, 337, Card.HEIGHT, Card.WIDTH),
+		DECKCARD(50, 337, Card.HEIGHT, Card.WIDTH, CardStatus.DECKCARD),
 		/** カードを出す場 */
-		FIELD(220, 337, 227, 698),
+		FIELD(220, 337, 227, 698, CardStatus.FIELDCARD),
 		/** 捨て札 */
-		THROWCARD(1040, 337, Card.HEIGHT, Card.WIDTH),
+		THROWCARD(1040, 337, Card.HEIGHT, Card.WIDTH, CardStatus.THROWCARD),
 		;
 
 		/** ポジションの左上の座標 */
@@ -92,6 +105,8 @@ public class Table extends GameObject
 		private int height;
 		/** ポジションの横幅 */
 		private int width;
+		/** そのポジションに置かれるカードの種類 */
+		private CardStatus cardStatus;
 
 		/**
 		 * コンストラクタ
@@ -100,12 +115,13 @@ public class Table extends GameObject
 		 * @param height ポジションの縦幅
 		 * @param width ポジションの横幅
 		 */
-		private Position(int positionX, int positionY, int height, int width)
+		private CardPosition(int positionX, int positionY, int height, int width, CardStatus status)
 		{
 			this.positionX = positionX;
 			this.positionY = positionY;
 			this.height = height;
 			this.width = width;
+			this.cardStatus = status;
 		}
 
 		/**
@@ -131,7 +147,7 @@ public class Table extends GameObject
 		 * @param handCardNum 手札の番号　左から0~
 		 * @return 指定された手札の位置
 		 */
-		public static Position getHandCardPosition(int handCardNum)
+		public static CardPosition getHandCardPosition(int handCardNum)
 		{
 			if (handCardNum >= 0 && handCardNum <= HANDCARD_NUM)
 			{
@@ -156,6 +172,11 @@ public class Table extends GameObject
 		public int getWidth()
 		{
 			return width;
+		}
+
+		public CardStatus getStatus()
+		{
+			return cardStatus;
 		}
 	}
 }

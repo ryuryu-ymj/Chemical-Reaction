@@ -4,7 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
-import chemicalReaction.Table.Position;
+import chemicalReaction.Table.CardPosition;
 
 /**
  * ゲームオブジェクトの管理クラス.
@@ -69,7 +69,7 @@ public class ObjectPool
 	 * @param position カードの位置
 	 * @return cardの配列番号
 	 */
-	public static int newCard(int num, String symbol, int x, int y, Position position)
+	public static int newCard(int num, String symbol, int x, int y, CardPosition position)
 	{
 		for (int i = 0; i < CARD_MAX; i++)
 		{
@@ -111,13 +111,27 @@ public class ObjectPool
 			}
 			else // カードを置く
 			{
-				for (int i = 0; i < Table.Position.values().length; i++)
+				for (int i = 0; i < Table.CardPosition.values().length; i++)
 				{
-					if (gc.getInput().getMouseX() > Position.values()[i].getPositionX() && gc.getInput().getMouseX() < Position.values()[i].getPositionX() + Position.values()[i].getWidth())
+					if (gc.getInput().getMouseX() > CardPosition.values()[i].getPositionX() && gc.getInput().getMouseX() < CardPosition.values()[i].getPositionX() + CardPosition.values()[i].getWidth())
 					{
-						if (gc.getInput().getMouseY() > Position.values()[i].getPositionY() && gc.getInput().getMouseY() < Position.values()[i].getPositionY() + Position.values()[i].getHeight())
+						if (gc.getInput().getMouseY() > CardPosition.values()[i].getPositionY() && gc.getInput().getMouseY() < CardPosition.values()[i].getPositionY() + CardPosition.values()[i].getHeight())
 						{
-							j:
+							switch (CardPosition.values()[i].getStatus())
+							{
+								case HANDCARD:
+									putdownHandCard(i);
+									break;
+								case DECKCARD:
+									break;
+								case FIELDCARD:
+									break;
+								case THROWCARD:
+									break;
+								default:
+									break;
+							}
+							/*j:
 							for (int j = 0; j < Table.HANDCARD_NUM; j++)
 							{
 								if (card[j].getPosition() == Position.values()[i] && j != Card.holdCardNum)
@@ -126,7 +140,7 @@ public class ObjectPool
 									break j;
 								}
 							}
-							card[Card.holdCardNum].putdownCard(Position.values()[i]);
+							card[Card.holdCardNum].putdownCard(Position.values()[i]);*/
 							Card.holdCardNum = -1;
 							break i;
 						}
@@ -136,6 +150,20 @@ public class ObjectPool
 				Card.holdCardNum = -1;
 			}
 		}
+	}
+
+	private void putdownHandCard(int checkingCardNum)
+	{
+		j:
+			for (int j = 0; j < Table.HANDCARD_NUM; j++)
+			{
+				if (card[j].getPosition() == CardPosition.values()[checkingCardNum] && j != Card.holdCardNum)
+				{
+					card[j].putdownCard(card[Card.holdCardNum].getPosition());
+					break j;
+				}
+			}
+			card[Card.holdCardNum].putdownCard(CardPosition.values()[checkingCardNum]);
 	}
 
 	/**
