@@ -81,18 +81,31 @@ public class Table extends GameObject
 		/** 山札 */
 		DECKCARD(50, 337, Card.HEIGHT, Card.WIDTH),
 		/** カードを出す場 */
-		FIELD(220, 337, 227, 928),
+		FIELD(220, 337, 227, 698),
 		/** 捨て札 */
 		THROWCARD(1040, 337, Card.HEIGHT, Card.WIDTH),
 		;
 
 		/** ポジションの左上の座標 */
 		private int positionX, positionY;
+		/** ポジションの縦幅 */
+		private int height;
+		/** ポジションの横幅 */
+		private int width;
 
+		/**
+		 * コンストラクタ
+		 * @param positionX ポジションの左上の座標
+		 * @param positionY ポジションの左上の座標
+		 * @param height ポジションの縦幅
+		 * @param width ポジションの横幅
+		 */
 		private Position(int positionX, int positionY, int height, int width)
 		{
 			this.positionX = positionX;
 			this.positionY = positionY;
+			this.height = height;
+			this.width = width;
 		}
 
 		/**
@@ -125,6 +138,24 @@ public class Table extends GameObject
 				return values()[handCardNum];
 			}
 			return null;
+		}
+
+		/**
+		 *
+		 * @return ポジションの縦幅
+		 */
+		public int getHeight()
+		{
+			return height;
+		}
+
+		/**
+		 *
+		 * @return ポジションの横幅
+		 */
+		public int getWidth()
+		{
+			return width;
 		}
 	}
 }

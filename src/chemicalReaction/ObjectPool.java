@@ -105,7 +105,7 @@ public class ObjectPool
 		if (Card.holdCardNum != -1)
 		{
 			i:
-			if (gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) // カードを移動させる
+			if (gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) // つかんでいるカードをマウスに合わせて移動させる
 			{
 				card[Card.holdCardNum].shiftCard(gc);
 			}
@@ -113,9 +113,9 @@ public class ObjectPool
 			{
 				for (int i = 0; i < Table.Position.values().length; i++)
 				{
-					if (gc.getInput().getMouseX() > Position.values()[i].getPositionX() && gc.getInput().getMouseX() < Position.values()[i].getPositionX() + Card.WIDTH)
+					if (gc.getInput().getMouseX() > Position.values()[i].getPositionX() && gc.getInput().getMouseX() < Position.values()[i].getPositionX() + Position.values()[i].getWidth())
 					{
-						if (gc.getInput().getMouseY() > Position.values()[i].getPositionY() && gc.getInput().getMouseY() < Position.values()[i].getPositionY() + Card.HEIGHT)
+						if (gc.getInput().getMouseY() > Position.values()[i].getPositionY() && gc.getInput().getMouseY() < Position.values()[i].getPositionY() + Position.values()[i].getHeight())
 						{
 							j:
 							for (int j = 0; j < Table.HANDCARD_NUM; j++)
