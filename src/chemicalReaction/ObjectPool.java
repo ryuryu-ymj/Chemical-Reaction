@@ -120,11 +120,13 @@ public class ObjectPool
 							switch (CardPosition.values()[i].getStatus())
 							{
 								case HANDCARD:
-									putdownHandCard(i);
+									putdownHandCard(CardPosition.getHandCardPosition(i), card[Card.holdCardNum]);
 									break;
 								case DECKCARD:
+									card[Card.holdCardNum].putdownCard();
 									break;
 								case FIELDCARD:
+									putdownFieldCard(card[Card.holdCardNum]);
 									break;
 								case THROWCARD:
 									break;
@@ -152,18 +154,31 @@ public class ObjectPool
 		}
 	}
 
-	private void putdownHandCard(int checkingCardNum)
+	/**
+	 * つかんでいるカードを手札に置く<p>
+	 * 置かれる先にカードがある場合，カードの位置が入れ替わる
+	 * @param putCardPosition 置かれる先の手札のポジション
+	 * @param holdCard 今つかんでいるカード
+	 */
+	private void putdownHandCard(CardPosition putCardPosition, Card holdCard)
 	{
 		j:
-			for (int j = 0; j < Table.HANDCARD_NUM; j++)
+			for (int i = 0; i < Table.HANDCARD_NUM; i++)
 			{
-				if (card[j].getPosition() == CardPosition.values()[checkingCardNum] && j != Card.holdCardNum)
+				if (card[i].getPosition() == putCardPosition)
 				{
-					card[j].putdownCard(card[Card.holdCardNum].getPosition());
+					card[i].putdownCard(holdCard.getPosition());
 					break j;
 				}
 			}
-			card[Card.holdCardNum].putdownCard(CardPosition.values()[checkingCardNum]);
+			holdCard.putdownCard(putCardPosition);
+	}
+
+	private void putdownFieldCard(Card holdCard)
+	{
+		table.addFieldCard(holdCard);
+
+		holdCard.putdownCard(CardPosition.FIELD);
 	}
 
 	/**

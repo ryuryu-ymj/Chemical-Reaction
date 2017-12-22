@@ -77,7 +77,14 @@ public class Card extends GameObject
 	{
 		if (isMoveAuto)
 		{
-			moveCardAuto(position.getPositionX(), position.getPositionY(), 20);
+			//if (position.getStatus() != Table.CardStatus.FIELDCARD)
+			{
+				moveCardAuto(position.getPositionX(), position.getPositionY(), 20);
+			}
+			//else
+			{
+				//moveCardAuto(Table.getFieldCardX(this), position.getPositionY(), 20);
+			}
 		}
 
 		if (isRotationAuto)
@@ -137,6 +144,21 @@ public class Card extends GameObject
 		isMoveAuto = true;
 		isHoldCard = true;
 	}
+
+	/**
+	 * 何もない場所にカードを置く
+	 */
+	public void putdownCard()
+	{
+		isMoveAuto = true;
+		isHoldCard = true;
+	}
+
+	/*public void putdownCard(int putX, int putY)
+	{
+		isMoveAuto = true;
+		isHoldCard = true;
+	}*/
 
 	/**
 	 * カードを自動で滑らかに移動させる
@@ -212,6 +234,7 @@ public class Card extends GameObject
 		this.symbol = symbol;
 		this.x = x;
 		this.y = y;
+		this.position = position;
 		this.position = position;
 	}
 

@@ -1,5 +1,7 @@
 package chemicalReaction;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
@@ -15,9 +17,9 @@ public class Table extends GameObject
 	/** テーブルの山札の数 */
 	public static final int DECKCARD_NUM = 10;
 	/** 山札のx座標 */
-	//public static final int CARDBACK_X = 50;
+	public static final int DECKCARD_X = 50;
 	/** 山札のy座標 */
-	//public static final int CARDBACK_Y = Play.DISPLAY_HEIGHT / 2 - Card.HEIGHT / 2;
+	public static final int DECKCARD_Y = Play.DISPLAY_HEIGHT / 2 - Card.HEIGHT / 2;
 
 	/** カードを出す場の縦幅（余白も入れて） */
 	public static final int FIELD_HEIGHT = 227;
@@ -28,6 +30,9 @@ public class Table extends GameObject
 	public static final int BUTTON_X = 1210;
 	/** ボタンのy座標 */
 	public static final int BUTTON_Y = 337;
+
+	/** 場札 */
+	private static ArrayList<Card> fieldCards = new ArrayList<>();
 
 	/**
 	 * コンストラクタ
@@ -59,8 +64,23 @@ public class Table extends GameObject
 		}
 		for (int i = 0; i < DECKCARD_NUM; i++)
 		{
-			ImageManager.renderCardBack(CardPosition.DECKCARD.positionX + (DECKCARD_NUM - 1 - i), CardPosition.DECKCARD.positionY + (DECKCARD_NUM - 1 - i));
+			ImageManager.renderCardBack(DECKCARD_X + (DECKCARD_NUM - 1 - i), DECKCARD_Y + (DECKCARD_NUM - 1 - i));
 		}
+	}
+
+	public static void addFieldCard(Card addFieldCard)
+	{
+		fieldCards.add(addFieldCard);
+	}
+
+	public static void removeFieldCard(Card removeFieldCard)
+	{
+		fieldCards.remove(removeFieldCard);
+	}
+
+	public static int getFieldCardX(Card fieldCard)
+	{
+		return CardPosition.FIELD.positionX + CardPosition.FIELD.width * fieldCards.indexOf(fieldCard) / fieldCards.size();
 	}
 
 	public static enum CardStatus
@@ -94,7 +114,7 @@ public class Table extends GameObject
 		/** 山札 */
 		DECKCARD(50, 337, Card.HEIGHT, Card.WIDTH, CardStatus.DECKCARD),
 		/** カードを出す場 */
-		FIELD(220, 337, 227, 698, CardStatus.FIELDCARD),
+		FIELD(220, 337, Card.HEIGHT, 698, CardStatus.FIELDCARD),
 		/** 捨て札 */
 		THROWCARD(1040, 337, Card.HEIGHT, Card.WIDTH, CardStatus.THROWCARD),
 		;
