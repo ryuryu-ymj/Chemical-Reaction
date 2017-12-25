@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
 import chemicalReaction.Table.CardPosition;
+import chemicalReaction.Table.CardStatus;
 
 /**
  * ゲームオブジェクトの管理クラス.
@@ -97,6 +98,7 @@ public class ObjectPool
 						{
 							card[i].holdCard(gc);
 							Card.holdCardNum = i;
+							Table.removeFieldCard(card[i]);
 						}
 					}
 				}
@@ -120,15 +122,16 @@ public class ObjectPool
 							switch (CardPosition.values()[i].getStatus())
 							{
 								case HANDCARD:
-									putdownHandCard(CardPosition.getHandCardPosition(i), card[Card.holdCardNum]);
+									putdownToHandCard(CardPosition.getHandCardPosition(i), card[Card.holdCardNum]);
 									break;
 								case DECKCARD:
 									card[Card.holdCardNum].putdownCard();
 									break;
 								case FIELDCARD:
-									putdownFieldCard(card[Card.holdCardNum]);
+									putdownToFieldCard(card[Card.holdCardNum]);
 									break;
 								case THROWCARD:
+									putdownToThrowCard(card[Card.holdCardNum]);
 									break;
 								default:
 									break;
@@ -148,7 +151,7 @@ public class ObjectPool
 						}
 					}
 				}
-				card[Card.holdCardNum].putdownCard(card[Card.holdCardNum].getPosition());
+				card[Card.holdCardNum].putdownCard(card[Card.holdCardNum].getPosition()); // 何もない場所にカードを置く
 				Card.holdCardNum = -1;
 			}
 		}
@@ -160,25 +163,43 @@ public class ObjectPool
 	 * @param putCardPosition 置かれる先の手札のポジション
 	 * @param holdCard 今つかんでいるカード
 	 */
-	private void putdownHandCard(CardPosition putCardPosition, Card holdCard)
+	private void putdownToHandCard(CardPosition putCardPosition, Card holdCard)
 	{
 		j:
-			for (int i = 0; i < Table.HANDCARD_NUM; i++)
+		for (int i = 0; i < Table.HANDCARD_NUM; i++)
+		{
+			if (card[i].getPosition() == putCardPosition)
 			{
-				if (card[i].getPosition() == putCardPosition)
+				//if (holdCard.getPosition().getStatus() == CardStatus.HANDCARD)
 				{
 					card[i].putdownCard(holdCard.getPosition());
 					break j;
 				}
 			}
-			holdCard.putdownCard(putCardPosition);
+		}
+		holdCard.putdownCard(putCardPosition);
 	}
 
-	private void putdownFieldCard(Card holdCard)
+	private void putdownToFieldCard(Card holdCard)
 	{
-		table.addFieldCard(holdCard);
-
 		holdCard.putdownCard(CardPosition.FIELD);
+	}
+
+	private void putdownToThrowCard(Card holdCard)
+	{
+		j:
+		for (int i = 0; i < Table.HANDCARD_NUM; i++)
+		{
+			if (card[i].getPosition().getStatus() == CardStatus.THROWCARD)
+			{
+				//if (holdCard.getPosition().getStatus() == CardStatus.HANDCARD)
+				{
+					card[i].putdownCard(holdCard.getPosition());
+					break j;
+				}
+			}
+		}
+		holdCard.putdownCard(Table.CardPosition.THROWCARD);
 	}
 
 	/**

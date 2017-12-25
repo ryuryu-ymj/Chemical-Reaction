@@ -80,7 +80,12 @@ public class Table extends GameObject
 
 	public static int getFieldCardX(Card fieldCard)
 	{
-		return CardPosition.FIELD.positionX + CardPosition.FIELD.width * fieldCards.indexOf(fieldCard) / fieldCards.size();
+		System.out.println(fieldCards.indexOf(fieldCard) + " " + fieldCards.size());
+		if (fieldCards.size() != 0)
+		{
+			return CardPosition.FIELD.positionX + CardPosition.FIELD.width * fieldCards.indexOf(fieldCard) / fieldCards.size();
+		}
+		return CardPosition.FIELD.positionX;
 	}
 
 	public static enum CardStatus
@@ -114,7 +119,7 @@ public class Table extends GameObject
 		/** 山札 */
 		DECKCARD(50, 337, Card.HEIGHT, Card.WIDTH, CardStatus.DECKCARD),
 		/** カードを出す場 */
-		FIELD(220, 337, Card.HEIGHT, 698, CardStatus.FIELDCARD),
+		FIELD(220, 337, Card.HEIGHT, 790, CardStatus.FIELDCARD),
 		/** 捨て札 */
 		THROWCARD(1040, 337, Card.HEIGHT, Card.WIDTH, CardStatus.THROWCARD),
 		;

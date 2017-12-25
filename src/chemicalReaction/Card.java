@@ -4,6 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 import chemicalReaction.Table.CardPosition;
+import chemicalReaction.Table.CardStatus;
 
 public class Card extends GameObject
 {
@@ -40,7 +41,7 @@ public class Card extends GameObject
 	 */
 	//private float putX, putY;
 	/**
-	 * そのカードが置かれている位置
+	 * そのカードが置かれているポジション
 	 */
 	private CardPosition position;
 	/**
@@ -75,16 +76,16 @@ public class Card extends GameObject
 	@Override
 	public void update(GameContainer gc)
 	{
-		if (isMoveAuto)
+		if (position.getStatus() != Table.CardStatus.FIELDCARD)
 		{
-			//if (position.getStatus() != Table.CardStatus.FIELDCARD)
+			if (isMoveAuto)
 			{
 				moveCardAuto(position.getPositionX(), position.getPositionY(), 20);
 			}
-			//else
-			{
-				//moveCardAuto(Table.getFieldCardX(this), position.getPositionY(), 20);
-			}
+		}
+		else
+		{
+			moveCardAuto(Table.getFieldCardX(this), position.getPositionY(), 20);
 		}
 
 		if (isRotationAuto)
@@ -143,6 +144,10 @@ public class Card extends GameObject
 		this.position = position;
 		isMoveAuto = true;
 		isHoldCard = true;
+		if (position.getStatus() == CardStatus.FIELDCARD)
+		{
+			Table.addFieldCard(this);
+		}
 	}
 
 	/**
