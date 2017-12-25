@@ -80,7 +80,7 @@ public class Table extends GameObject
 
 	public static int getFieldCardX(Card fieldCard)
 	{
-		System.out.println(fieldCards.indexOf(fieldCard) + " " + fieldCards.size());
+		//System.out.println(fieldCards.indexOf(fieldCard) + " " + fieldCards.size());
 		if (fieldCards.size() != 0)
 		{
 			return CardPosition.FIELD.positionX + CardPosition.FIELD.width * fieldCards.indexOf(fieldCard) / fieldCards.size();

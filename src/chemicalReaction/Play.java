@@ -22,6 +22,7 @@ public class Play extends GameState
 
 	ObjectPool objectPool;
 	ImageManager gameImage;
+	ChemicalEquation chemicalEquation;
 
 	/**
 	 * コンストラクタ
