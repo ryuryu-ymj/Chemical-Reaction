@@ -2,6 +2,11 @@ package chemicalReaction;
 
 import java.util.Random;
 
+/**
+ * 元素
+ * @author ryuryu
+ *
+ */
 public enum Element
 {
 	H(1, "水素"),
