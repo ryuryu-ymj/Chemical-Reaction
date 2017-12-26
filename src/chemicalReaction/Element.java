@@ -79,4 +79,9 @@ public enum Element
 		int index = new Random().nextInt(values().length);
 		return values()[index];
 	}
+
+	public static Element getFromSymbol(String symbol)
+	{
+		return valueOf(symbol);
+	}
 }

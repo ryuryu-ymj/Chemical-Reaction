@@ -1,7 +1,7 @@
 package chemicalReaction;
 
 /**
- * 化学反応式を格納する型
+ * 化学反応式
  * @author ryuryu
  *
  */

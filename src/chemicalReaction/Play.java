@@ -22,7 +22,9 @@ public class Play extends GameState
 
 	ObjectPool objectPool;
 	ImageManager gameImage;
+	Element element;
 	ChemicalEquation chemicalEquation;
+	Molecular molecular;
 
 	/**
 	 * コンストラクタ
@@ -36,6 +38,8 @@ public class Play extends GameState
 			ObjectPool.newCard(i + 1, "Au", Table.CardPosition.DECKCARD.getPositionX(), Table.CardPosition.DECKCARD.getPositionY(), Table.CardPosition.getHandCardPosition(i));
 		}
 		gameImage = new ImageManager();
+		element = Element.Ag;
+		molecular = Molecular.C_O2;
 	}
 
 	/**
@@ -60,6 +64,7 @@ public class Play extends GameState
 		objectPool.update(gc);
 
 		counter++;
+		System.out.println(molecular.getNums()[0]);
 	}
 
 	/**
