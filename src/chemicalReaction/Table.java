@@ -32,7 +32,7 @@ public class Table extends GameObject
 	public static final int BUTTON_Y = 337;
 
 	/** 場札 */
-	private static ArrayList<Card> fieldCards = new ArrayList<>();
+	public static ArrayList<Card> fieldCards = new ArrayList<>();
 
 	/**
 	 * コンストラクタ

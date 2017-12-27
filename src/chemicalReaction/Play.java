@@ -22,8 +22,8 @@ public class Play extends GameState
 
 	ObjectPool objectPool;
 	ImageManager gameImage;
-	Element element;
-	ChemicalEquation chemicalEquation;
+	//Element element;
+	//ChemicalEquation chemicalEquation;
 	Molecular molecular;
 
 	/**
@@ -35,11 +35,11 @@ public class Play extends GameState
 		objectPool = new ObjectPool();
 		for (int i = 0; i < Table.HANDCARD_NUM; i++)
 		{
-			ObjectPool.newCard(i + 1, "Au", Table.CardPosition.DECKCARD.getPositionX(), Table.CardPosition.DECKCARD.getPositionY(), Table.CardPosition.getHandCardPosition(i));
+			ObjectPool.newCard(Element.H, Table.CardPosition.DECKCARD.getPositionX(), Table.CardPosition.DECKCARD.getPositionY(), Table.CardPosition.getHandCardPosition(i));
 		}
 		gameImage = new ImageManager();
-		element = Element.Ag;
-		molecular = Molecular.C_O2;
+		//element = Element.Ag;
+		molecular = Molecular.Ca_O;
 	}
 
 	/**
@@ -60,11 +60,12 @@ public class Play extends GameState
 	{
 
 		objectPool.moveCards(gc);
+		objectPool.checkFieldCardToMolecular();
 		objectPool.dealCards();
 		objectPool.update(gc);
 
 		counter++;
-		System.out.println(molecular.getNums()[0]);
+		System.out.println(molecular.getElements()[0].getSymbol());
 	}
 
 	/**

@@ -21,13 +21,9 @@ public class Card extends GameObject
 	 */
 	public static final int SPACE_BREADTH = 23;
 	/**
-	 * カード番号
+	 * そのカードの元素
 	 */
-	private int num;
-	/**
-	 * 元素記号および分子式、組成式
-	 */
-	public String symbol;
+	private ElementAndMolecular element;
 	/**
 	 * カードをつかんだときのカードの左上からの座標
 	 */
@@ -104,7 +100,7 @@ public class Card extends GameObject
 		}
 		else
 		{
-			ImageManager.getCard(num).draw(x + WIDTH / 2 - (float) (WIDTH * Math.cos(angle)) / 2, y, (float) (WIDTH * Math.cos(angle)), HEIGHT);
+			ImageManager.getCard(element.getNum()).draw(x + WIDTH / 2 - (float) (WIDTH * Math.cos(angle)) / 2, y, (float) (WIDTH * Math.cos(angle)), HEIGHT);
 		}
 		//img[num].draw((float)(x - width / 2 / 3.5), y - height / 2 / 5, (float)(width * 4.5 / 3.5), height * 6 / 5);
 		//System.out.println(CardSet.getSymbolFromNum(0));
@@ -222,34 +218,28 @@ public class Card extends GameObject
 
 	/**
 	 * 初期化処理
-	 * @param num カード番号
-	 * @param symbol 元素記号および分子式、組成式
+	 * @param element カードの種類
 	 * @param x x成分 最初に表示させるカードの左上の頂点
 	 * @param y y成分 最初に表示させるカードの左上の頂点
 	 * @param position カードが置かれる場所
 	 */
-	public void activate(int num, String symbol, int x, int y, CardPosition position)
+	public void activate(ElementAndMolecular element, int x, int y, CardPosition position)
 	{
 		active = true;
 		isMoveAuto = false;
 		isRotationAuto = false;
 		isHoldCard = false;
 		angle = Math.PI;
-		this.num = num;
-		this.symbol = symbol;
+		this.element = element;
 		this.x = x;
 		this.y = y;
 		this.position = position;
 		this.position = position;
 	}
 
-	/**
-	 *
-	 * @return カード番号
-	 */
-	public int getNum()
+	public ElementAndMolecular getElement()
 	{
-		return num;
+		return element;
 	}
 
 	/**

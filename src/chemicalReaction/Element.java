@@ -7,7 +7,7 @@ import java.util.Random;
  * @author ryuryu
  *
  */
-public enum Element
+public enum Element implements ElementAndMolecular
 {
 	H(1, "水素"),
 	He(2, "ヘリウム"),
@@ -29,12 +29,12 @@ public enum Element
 	Ar(18, "アルゴン"),
 	K(19, "カリウム"),
 	Ca(20, "カルシウム"),
-	Mn(25, "マンガン"),
+	/*Mn(25, "マンガン"),
 	Fe(26, "鉄"),
 	Cu(29, "銅"),
 	Zn(30, "亜鉛"),
 	Ag(47, "銀"),
-	I(53, "ヨウ素"),
+	I(53, "ヨウ素"),*/
 	;
 
 	/** 原子番号ただし分子や組成式も含む */

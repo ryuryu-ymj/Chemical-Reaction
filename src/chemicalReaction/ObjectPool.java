@@ -1,5 +1,7 @@
 package chemicalReaction;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -44,7 +46,7 @@ public class ObjectPool
 	 */
 	public void update(GameContainer gc)
 	{
-		updateObjects(card, gc);;
+		updateObjects(card, gc);
 	}
 
 	/**
@@ -63,26 +65,29 @@ public class ObjectPool
 
 	/**
 	 * 新しいカードを作る
-	 * @param num カード番号
-	 * @param symbol 元素記号および分子式、組成式
+	 * @param element カードの種類
 	 * @param x x成分
 	 * @param y y成分
 	 * @param position カードの位置
 	 * @return cardの配列番号
 	 */
-	public static int newCard(int num, String symbol, int x, int y, CardPosition position)
+	public static int newCard(ElementAndMolecular element, int x, int y, CardPosition position)
 	{
 		for (int i = 0; i < CARD_MAX; i++)
 		{
 			if (!card[i].active)
 			{
-				card[i].activate(num, symbol, x, y, position);
+				card[i].activate(element, x, y, position);
 				return i;
 			}
 		}
 		return -1;
 	}
 
+	/**
+	 * カードをつかむ，移動させる，置くなどの動作を管理
+	 * @param gc
+	 */
 	public void moveCards(GameContainer gc)
 	{
 		// カードをつかむ
@@ -180,11 +185,20 @@ public class ObjectPool
 		holdCard.putdownCard(putCardPosition);
 	}
 
+	/**
+	 * つかんでいるカードを場札に置く
+	 * @param holdCard
+	 */
 	private void putdownToFieldCard(Card holdCard)
 	{
 		holdCard.putdownCard(CardPosition.FIELD);
 	}
 
+	/**
+	 * つかんでいるカードを捨て札に置く<p>
+	 * 置かれる先にカードがある場合，カードの位置が入れ替わる
+	 * @param holdCard 今つかんでいるカード
+	 */
 	private void putdownToThrowCard(Card holdCard)
 	{
 		j:
@@ -200,6 +214,65 @@ public class ObjectPool
 			}
 		}
 		holdCard.putdownCard(Table.CardPosition.THROWCARD);
+	}
+
+	/**
+	 * 場札が役と一致しているかを
+	 */
+	public Molecular checkFieldCardToMolecular()
+	{
+		ArrayList<Card> fieldCardsCopy = new ArrayList<>();
+		for (int i = 0; i < Table.fieldCards.size(); i++)
+		{
+			fieldCardsCopy.add(Table.fieldCards.get(i));
+		}
+		ArrayList<Element> molularElementSet = new ArrayList<>();
+		for (int i = 0; i < Molecular.values().length; i++)
+		{
+			for (int j = 0; j < Molecular.values()[i].getElements().length; j++)
+			{
+				for (int k = 0; k < Molecular.values()[i].getNumsOfElement()[j]; k++)
+				{
+					molularElementSet.add(Molecular.values()[i].getElements()[j]);
+					System.out.print(i + " " + Molecular.values()[i].getElements()[j] + " " + j);
+				}
+			}
+			//System.out.println(Molecular.values()[i].getSymbol());
+			System.out.println();
+			/*for (int j = 0; j < fieldCardsCopy.size(); j++)
+			{
+				for (int k = 0; k < molularElementSet.size(); k++)
+				{
+					if (fieldCardsCopy.get(j).getElement() == molularElementSet.get(k))
+					{
+						fieldCardsCopy.remove(j);
+						molularElementSet.remove(k);
+					}
+				}
+			}
+			if (fieldCardsCopy.isEmpty() && molularElementSet.isEmpty())
+			{
+				System.out.println(Molecular.values()[i].getSymbol());
+				return Molecular.values()[i];
+			}
+			/*for (int j = 0; j < fieldCardsCopy.size(); j++)
+			{
+				for (int k = 0; k < Molecular.values()[i].getElements().length; k++)
+				{
+					if (fieldCardsCopy.get(j).getElement() == Molecular.values()[i].getElements()[k])
+					{
+						fieldCardsCopy.remove(fieldCardsCopy.get(j));
+					}
+				}
+			}*/
+			/*for (int i1 = 0; i1 < molularElementSet.size(); i1++)
+			{
+				System.out.print(molularElementSet.get(i1).getSymbol());
+			}
+			System.out.println();*/
+			molularElementSet.clear();
+		}
+		return null;
 	}
 
 	/**
