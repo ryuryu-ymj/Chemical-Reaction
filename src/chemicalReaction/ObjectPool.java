@@ -71,7 +71,7 @@ public class ObjectPool
 	 * @param position カードの位置
 	 * @return cardの配列番号
 	 */
-	public static int newCard(ElementAndMolecular element, int x, int y, CardPosition position)
+	public static int newCard(Element element, int x, int y, CardPosition position)
 	{
 		for (int i = 0; i < CARD_MAX; i++)
 		{
@@ -221,57 +221,6 @@ public class ObjectPool
 	 */
 	public Molecular checkFieldCardToMolecular()
 	{
-		ArrayList<Card> fieldCardsCopy = new ArrayList<>();
-		for (int i = 0; i < Table.fieldCards.size(); i++)
-		{
-			fieldCardsCopy.add(Table.fieldCards.get(i));
-		}
-		ArrayList<Element> molularElementSet = new ArrayList<>();
-		for (int i = 0; i < Molecular.values().length; i++)
-		{
-			for (int j = 0; j < Molecular.values()[i].getElements().length; j++)
-			{
-				for (int k = 0; k < Molecular.values()[i].getNumsOfElement()[j]; k++)
-				{
-					molularElementSet.add(Molecular.values()[i].getElements()[j]);
-					System.out.print(i + " " + Molecular.values()[i].getElements()[j] + " " + j);
-				}
-			}
-			//System.out.println(Molecular.values()[i].getSymbol());
-			System.out.println();
-			/*for (int j = 0; j < fieldCardsCopy.size(); j++)
-			{
-				for (int k = 0; k < molularElementSet.size(); k++)
-				{
-					if (fieldCardsCopy.get(j).getElement() == molularElementSet.get(k))
-					{
-						fieldCardsCopy.remove(j);
-						molularElementSet.remove(k);
-					}
-				}
-			}
-			if (fieldCardsCopy.isEmpty() && molularElementSet.isEmpty())
-			{
-				System.out.println(Molecular.values()[i].getSymbol());
-				return Molecular.values()[i];
-			}
-			/*for (int j = 0; j < fieldCardsCopy.size(); j++)
-			{
-				for (int k = 0; k < Molecular.values()[i].getElements().length; k++)
-				{
-					if (fieldCardsCopy.get(j).getElement() == Molecular.values()[i].getElements()[k])
-					{
-						fieldCardsCopy.remove(fieldCardsCopy.get(j));
-					}
-				}
-			}*/
-			/*for (int i1 = 0; i1 < molularElementSet.size(); i1++)
-			{
-				System.out.print(molularElementSet.get(i1).getSymbol());
-			}
-			System.out.println();*/
-			molularElementSet.clear();
-		}
 		return null;
 	}
 

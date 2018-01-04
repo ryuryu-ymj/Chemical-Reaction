@@ -7,7 +7,7 @@ import java.util.Random;
  * @author ryuryu
  *
  */
-public enum Element implements ElementAndMolecular
+public enum Element
 {
 	H(1, "水素"),
 	He(2, "ヘリウム"),
@@ -37,7 +37,7 @@ public enum Element implements ElementAndMolecular
 	I(53, "ヨウ素"),*/
 	;
 
-	/** 原子番号ただし分子や組成式も含む */
+	/** カードの画像の配列番号 */
 	private int num;
 	/** 元素記号 */
 	private String symbol;
@@ -46,7 +46,7 @@ public enum Element implements ElementAndMolecular
 
 	/**
 	 * コンストラクタ
-	 * @param num 原子番号ただし分子や組成式も含む
+	 * @param num カードの画像の配列番号
 	 * @param name 日本語での名前
 	 */
 	Element(int num, String name)
@@ -62,7 +62,7 @@ public enum Element implements ElementAndMolecular
 		return symbol;
 	}
 
-	/** 原子番号ただし分子や組成式も含む */
+	/** カードの画像の配列番号 */
 	public int getNum()
 	{
 		return num;

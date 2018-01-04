@@ -23,7 +23,7 @@ public class Card extends GameObject
 	/**
 	 * そのカードの元素
 	 */
-	private ElementAndMolecular element;
+	private Element element;
 	/**
 	 * カードをつかんだときのカードの左上からの座標
 	 */
@@ -223,7 +223,7 @@ public class Card extends GameObject
 	 * @param y y成分 最初に表示させるカードの左上の頂点
 	 * @param position カードが置かれる場所
 	 */
-	public void activate(ElementAndMolecular element, int x, int y, CardPosition position)
+	public void activate(Element element, int x, int y, CardPosition position)
 	{
 		active = true;
 		isMoveAuto = false;
@@ -237,7 +237,7 @@ public class Card extends GameObject
 		this.position = position;
 	}
 
-	public ElementAndMolecular getElement()
+	public Element getElement()
 	{
 		return element;
 	}

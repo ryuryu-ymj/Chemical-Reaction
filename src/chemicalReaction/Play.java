@@ -39,7 +39,7 @@ public class Play extends GameState
 		}
 		gameImage = new ImageManager();
 		//element = Element.Ag;
-		molecular = Molecular.Ca_O;
+		molecular = Molecular.NH3;
 	}
 
 	/**
@@ -65,7 +65,12 @@ public class Play extends GameState
 		objectPool.update(gc);
 
 		counter++;
-		System.out.println(molecular.getElements()[0].getSymbol());
+		//System.out.println(molecular.getSymbol());
+		/*for (int i = 0; i < molecular.getElements().length; i++)
+		{
+			System.out.print(molecular.getElements()[i].getSymbol());
+		}
+		System.out.println();*/
 	}
 
 	/**
