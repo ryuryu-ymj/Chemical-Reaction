@@ -23,7 +23,9 @@ public class ImageManager
 	/** ボタン */
 	private static Image button;
 	/** 切り札を出す場の枠 */
-	private static Image field;
+	private static Image fieldFrame;
+	/** 手札を出す枠 */
+	private static Image handCardFrame;
 
 	ImageManager()
 	{
@@ -55,7 +57,9 @@ public class ImageManager
 
 		try
 		{
-			field = new Image("res/img/background2.png");
+			SpriteSheet ss = new SpriteSheet("res/img/background2.png", 1280, Card.HEIGHT);
+			fieldFrame = ss.getSubImage(0, 0);
+			handCardFrame = ss.getSubImage(0, 1);
 		}
 		catch (SlickException e)
 		{
@@ -96,12 +100,17 @@ public class ImageManager
 
 	public static void renderField(float x, float y)
 	{
-		field.draw(x, y);
+		fieldFrame.draw(x, y);
 	}
 
 	public static void renderButton(float x, float y)
 	{
 		button.draw(x, y);
+	}
+
+	public static void renderHandCardFrame(float x, float y)
+	{
+		handCardFrame.draw(x, y);
 	}
 
 	/**
@@ -134,6 +143,11 @@ public class ImageManager
 
 	public static Image getField()
 	{
-		return field;
+		return fieldFrame;
+	}
+
+	public static Image getHandCardFrame()
+	{
+		return handCardFrame;
 	}
 }

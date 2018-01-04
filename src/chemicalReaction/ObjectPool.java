@@ -66,18 +66,16 @@ public class ObjectPool
 	/**
 	 * 新しいカードを作る
 	 * @param element カードの種類
-	 * @param x x成分
-	 * @param y y成分
 	 * @param position カードの位置
 	 * @return cardの配列番号
 	 */
-	public static int newCard(Element element, int x, int y, CardPosition position)
+	public static int newCard(Element element, CardPosition position)
 	{
 		for (int i = 0; i < CARD_MAX; i++)
 		{
 			if (!card[i].active)
 			{
-				card[i].activate(element, x, y, position);
+				card[i].activate(element, position);
 				return i;
 			}
 		}
@@ -104,6 +102,7 @@ public class ObjectPool
 							card[i].holdCard(gc);
 							Card.holdCardNum = i;
 							Table.removeFieldCard(card[i]);
+							Table.removeHandCard(card[i]);
 						}
 					}
 				}
@@ -124,23 +123,7 @@ public class ObjectPool
 					{
 						if (gc.getInput().getMouseY() > CardPosition.values()[i].getPositionY() && gc.getInput().getMouseY() < CardPosition.values()[i].getPositionY() + CardPosition.values()[i].getHeight())
 						{
-							switch (CardPosition.values()[i].getStatus())
-							{
-								case HANDCARD:
-									putdownToHandCard(CardPosition.getHandCardPosition(i), card[Card.holdCardNum]);
-									break;
-								case DECKCARD:
-									card[Card.holdCardNum].putdownCard();
-									break;
-								case FIELDCARD:
-									putdownToFieldCard(card[Card.holdCardNum]);
-									break;
-								case THROWCARD:
-									putdownToThrowCard(card[Card.holdCardNum]);
-									break;
-								default:
-									break;
-							}
+							card[i].putdownCard(CardPosition.values()[i]);
 							/*j:
 							for (int j = 0; j < Table.HANDCARD_NUM; j++)
 							{
@@ -233,8 +216,7 @@ public class ObjectPool
 		{
 			if ((Play.counter - 20) / (i + 1) == 10)
 			{
-				card[i].startMoveAuto();
-				numOfCardInFrame[i] = i;
+				card[i].putdownCard(CardPosition.HANDCARD);
 			}
 			else if ((Play.counter - 150) / (i + 1) == 10)
 			{

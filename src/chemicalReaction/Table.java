@@ -22,9 +22,14 @@ public class Table extends GameObject
 	public static final int DECKCARD_Y = Play.DISPLAY_HEIGHT / 2 - Card.HEIGHT / 2;
 
 	/** カードを出す場の縦幅（余白も入れて） */
-	public static final int FIELD_HEIGHT = 227;
+	//public static final int FIELD_HEIGHT = 227;
 	/** カードを出す場の横幅（余白も入れて） */
-	public static final int FIELD_WIDTH = 928;
+	//public static final int FIELD_WIDTH = 831;
+
+	/** 手札を出す場の縦幅（余白も入れて） */
+	//public static final int HANDCARD_HEIGHT = 227;
+	/** 手札を出す場の横幅（余白も入れて） */
+	//public static final int HANDCARD_WIDTH = 1247;
 
 	/** ボタンのx座標 */
 	public static final int BUTTON_X = 1210;
@@ -33,6 +38,9 @@ public class Table extends GameObject
 
 	/** 場札 */
 	public static ArrayList<Card> fieldCards = new ArrayList<>();
+
+	/** 手札 */
+	public static ArrayList<Card> handCards = new ArrayList<>();
 
 	/**
 	 * コンストラクタ
@@ -58,10 +66,7 @@ public class Table extends GameObject
 		ImageManager.renderField(CardPosition.FIELD.positionX, CardPosition.FIELD.positionY);
 		ImageManager.renderButton(BUTTON_X, BUTTON_Y);
 		ImageManager.renderCardFrame(CardPosition.THROWCARD.positionX, CardPosition.THROWCARD.positionY);
-		for (int i = 0; i < HANDCARD_NUM; i++)
-		{
-			ImageManager.renderCardFrame(CardPosition.getHandCardPosition(i).positionX, CardPosition.getHandCardPosition(i).positionY);
-		}
+		ImageManager.renderHandCardFrame(CardPosition.HANDCARD.positionX, CardPosition.HANDCARD.positionY);
 		for (int i = 0; i < DECKCARD_NUM; i++)
 		{
 			ImageManager.renderCardBack(DECKCARD_X + (DECKCARD_NUM - 1 - i), DECKCARD_Y + (DECKCARD_NUM - 1 - i));
@@ -88,6 +93,25 @@ public class Table extends GameObject
 		return CardPosition.FIELD.positionX;
 	}
 
+	public static void addHandCard(Card addHandCard)
+	{
+		handCards.add(addHandCard);
+	}
+
+	public static void removeHandCard(Card removeHandCard)
+	{
+		handCards.remove(removeHandCard);
+	}
+
+	public static int getHandCardX(Card handCard)
+	{
+		if (handCards.size() != 0)
+		{
+			return CardPosition.HANDCARD.positionX + CardPosition.HANDCARD.width * handCards.indexOf(handCard) / handCards.size();
+		}
+		return CardPosition.HANDCARD.positionX;
+	}
+
 	public static enum CardStatus
 	{
 		/** 手札 */
@@ -108,18 +132,11 @@ public class Table extends GameObject
 	 */
 	public static enum CardPosition
 	{
-		HANDCARD1(20, 623, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
-		HANDCARD2(190, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
-		HANDCARD3(360, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
-		HANDCARD4(530, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
-		HANDCARD5(700, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
-		HANDCARD6(870, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
-		HANDCARD7(1040, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
-		HANDCARD8(1210, HANDCARD1.positionY, Card.HEIGHT, Card.WIDTH, CardStatus.HANDCARD),
+		HANDCARD(50, 623, Card.HEIGHT, 1247, CardStatus.HANDCARD),
 		/** 山札 */
 		DECKCARD(50, 337, Card.HEIGHT, Card.WIDTH, CardStatus.DECKCARD),
 		/** カードを出す場 */
-		FIELD(220, 337, Card.HEIGHT, 790, CardStatus.FIELDCARD),
+		FIELD(220, 337, Card.HEIGHT, 831, CardStatus.FIELDCARD),
 		/** 捨て札 */
 		THROWCARD(1040, 337, Card.HEIGHT, Card.WIDTH, CardStatus.THROWCARD),
 		;
@@ -165,20 +182,6 @@ public class Table extends GameObject
 		public int getPositionY()
 		{
 			return positionY;
-		}
-
-		/**
-		 * 指定された手札の位置を返す
-		 * @param handCardNum 手札の番号　左から0~
-		 * @return 指定された手札の位置
-		 */
-		public static CardPosition getHandCardPosition(int handCardNum)
-		{
-			if (handCardNum >= 0 && handCardNum <= HANDCARD_NUM)
-			{
-				return values()[handCardNum];
-			}
-			return null;
 		}
 
 		/**

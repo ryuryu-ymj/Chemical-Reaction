@@ -35,7 +35,7 @@ public class Play extends GameState
 		objectPool = new ObjectPool();
 		for (int i = 0; i < Table.HANDCARD_NUM; i++)
 		{
-			ObjectPool.newCard(Element.H, Table.CardPosition.DECKCARD.getPositionX(), Table.CardPosition.DECKCARD.getPositionY(), Table.CardPosition.getHandCardPosition(i));
+			ObjectPool.newCard(Element.H, Table.CardPosition.DECKCARD);
 		}
 		gameImage = new ImageManager();
 		//element = Element.Ag;
@@ -65,6 +65,7 @@ public class Play extends GameState
 		objectPool.update(gc);
 
 		counter++;
+		System.out.println(Table.handCards);
 		//System.out.println(molecular.getSymbol());
 		/*for (int i = 0; i < molecular.getElements().length; i++)
 		{

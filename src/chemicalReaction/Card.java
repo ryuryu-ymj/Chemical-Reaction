@@ -43,7 +43,7 @@ public class Card extends GameObject
 	/**
 	 * そのカードをput座標まで自動で動かすかどうか
 	 */
-	private boolean isMoveAuto;
+	//private boolean isMoveAuto;
 	/**
 	 * そのカードを回転させるかどうか
 	 */
@@ -72,16 +72,17 @@ public class Card extends GameObject
 	@Override
 	public void update(GameContainer gc)
 	{
-		if (position.getStatus() != Table.CardStatus.FIELDCARD)
+		switch (position.getStatus())
 		{
-			if (isMoveAuto)
-			{
+			case HANDCARD:
+				moveCardAuto(Table.getHandCardX(this), position.getPositionY(), 20);
+				break;
+			case FIELDCARD:
+				moveCardAuto(Table.getFieldCardX(this), position.getPositionY(), 20);
+				break;
+			default:
 				moveCardAuto(position.getPositionX(), position.getPositionY(), 20);
-			}
-		}
-		else
-		{
-			moveCardAuto(Table.getFieldCardX(this), position.getPositionY(), 20);
+				break;
 		}
 
 		if (isRotationAuto)
@@ -116,7 +117,6 @@ public class Card extends GameObject
 	{
 		holdX = gc.getInput().getMouseX() - x;
 		holdY = gc.getInput().getMouseY() - y;
-		isMoveAuto = false;
 		//holdCardNum = num;
 		//System.out.println(holdX);
 	}
@@ -128,7 +128,6 @@ public class Card extends GameObject
 	{
 		x = gc.getInput().getMouseX() - holdX;
 		y = gc.getInput().getMouseY() - holdY;
-		isMoveAuto = false;
 	}
 
 	/**
@@ -138,11 +137,21 @@ public class Card extends GameObject
 	public void putdownCard(CardPosition position)
 	{
 		this.position = position;
-		isMoveAuto = true;
 		isHoldCard = true;
 		if (position.getStatus() == CardStatus.FIELDCARD)
 		{
 			Table.addFieldCard(this);
+		}
+		switch (position)
+		{
+			case HANDCARD:
+				Table.addHandCard(this);
+				break;
+			case FIELD:
+				Table.addFieldCard(this);
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -151,7 +160,6 @@ public class Card extends GameObject
 	 */
 	public void putdownCard()
 	{
-		isMoveAuto = true;
 		isHoldCard = true;
 	}
 
@@ -182,16 +190,7 @@ public class Card extends GameObject
 			//System.out.println(num + " " + (goalX) + " " + (x) + " " + speedX + " " + (goalY) + " " + (y) + " " + speedY);
 			x = goalX;
 			y = goalY;
-			isMoveAuto = false;
 		}
-	}
-
-	/**
-	 * そのカードをput座標まで自動で動かし始める
-	 */
-	public void startMoveAuto()
-	{
-		isMoveAuto = true;
 	}
 
 	/**
@@ -219,21 +218,17 @@ public class Card extends GameObject
 	/**
 	 * 初期化処理
 	 * @param element カードの種類
-	 * @param x x成分 最初に表示させるカードの左上の頂点
-	 * @param y y成分 最初に表示させるカードの左上の頂点
 	 * @param position カードが置かれる場所
 	 */
-	public void activate(Element element, int x, int y, CardPosition position)
+	public void activate(Element element, CardPosition position)
 	{
 		active = true;
-		isMoveAuto = false;
 		isRotationAuto = false;
 		isHoldCard = false;
 		angle = Math.PI;
 		this.element = element;
-		this.x = x;
-		this.y = y;
-		this.position = position;
+		this.x = position.getPositionX();
+		this.y = position.getPositionY();
 		this.position = position;
 	}
 
