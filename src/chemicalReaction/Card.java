@@ -89,7 +89,6 @@ public class Card extends GameObject
 		{
 			rotationCardAuto();
 		}
-		System.out.println(this + " " + position);
 	}
 
 	@Override

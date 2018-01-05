@@ -164,6 +164,36 @@ public class ObjectPool
 	 */
 	public Molecular checkFieldCardToMolecular()
 	{
+		ArrayList<Element> fieldCardElements = new ArrayList<>();
+		for (int i = 0; i < Table.fieldCards.size(); i++)
+		{
+			fieldCardElements.add(Table.fieldCards.get(i).getElement());
+		}
+		for (int m = 0; m < Molecular.values().length; m++)
+		{
+			ArrayList<Element> MolecularElements = new ArrayList<>();
+			for (int e = 0; e < Molecular.values()[m].getElements().length; e++)
+			{
+				MolecularElements.add(Molecular.values()[m].getElements()[e]);
+			}
+			System.out.println(fieldCardElements + " " + MolecularElements);
+			for (int fE = 0; fE < fieldCardElements.size(); fE++)
+			{
+				for (int mE = 0; mE < MolecularElements.size(); mE++)
+				{
+					if (fieldCardElements.get(fE) == MolecularElements.get(mE))
+					{
+						//fieldCardElements.remove(fE);
+						//MolecularElements.remove(mE);
+						System.out.println(fE + " " + mE);
+					}
+				}
+			}
+			/*if (fieldCardElements.isEmpty() && MolecularElements.isEmpty())
+			{
+				return Molecular.values()[m];
+			}*/
+		}
 		return null;
 	}
 
