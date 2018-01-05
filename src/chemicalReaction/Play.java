@@ -65,7 +65,7 @@ public class Play extends GameState
 		objectPool.update(gc);
 
 		counter++;
-		System.out.println(Table.handCards);
+		//System.out.println(Table.handCards.size() + " " + Table.fieldCards.size());
 		//System.out.println(molecular.getSymbol());
 		/*for (int i = 0; i < molecular.getElements().length; i++)
 		{

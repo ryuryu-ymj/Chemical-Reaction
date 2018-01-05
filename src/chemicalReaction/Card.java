@@ -72,12 +72,12 @@ public class Card extends GameObject
 	@Override
 	public void update(GameContainer gc)
 	{
-		switch (position.getStatus())
+		switch (position)
 		{
 			case HANDCARD:
 				moveCardAuto(Table.getHandCardX(this), position.getPositionY(), 20);
 				break;
-			case FIELDCARD:
+			case FIELD:
 				moveCardAuto(Table.getFieldCardX(this), position.getPositionY(), 20);
 				break;
 			default:
@@ -89,6 +89,7 @@ public class Card extends GameObject
 		{
 			rotationCardAuto();
 		}
+		System.out.println(this + " " + position);
 	}
 
 	@Override
@@ -117,6 +118,7 @@ public class Card extends GameObject
 	{
 		holdX = gc.getInput().getMouseX() - x;
 		holdY = gc.getInput().getMouseY() - y;
+		isHoldCard = false;
 		//holdCardNum = num;
 		//System.out.println(holdX);
 	}
@@ -138,10 +140,6 @@ public class Card extends GameObject
 	{
 		this.position = position;
 		isHoldCard = true;
-		if (position.getStatus() == CardStatus.FIELDCARD)
-		{
-			Table.addFieldCard(this);
-		}
 		switch (position)
 		{
 			case HANDCARD:
@@ -153,6 +151,7 @@ public class Card extends GameObject
 			default:
 				break;
 		}
+		System.out.print(this);
 	}
 
 	/**
@@ -184,12 +183,14 @@ public class Card extends GameObject
 		{
 			x += speedX;
 			y += speedY;
+			isHoldCard = false;
 		}
 		else // 通り過ぎを防ぐ
 		{
 			//System.out.println(num + " " + (goalX) + " " + (x) + " " + speedX + " " + (goalY) + " " + (y) + " " + speedY);
 			x = goalX;
 			y = goalY;
+			isHoldCard = true;
 		}
 	}
 
