@@ -184,7 +184,6 @@ public class ObjectPool
 			{
 				isMolecularElementsExist[i] = true;
 			}
-			//System.out.println(fieldCardElements + " " + molecularElements);
 			System.out.print("fieldCardElements ");
 			for (int i = 0; i < fieldCardElements.length; i++)
 			{
@@ -196,6 +195,7 @@ public class ObjectPool
 				System.out.print(molecularElements[i].getSymbol() + " " + isMolecularElementsExist[i] + " ");
 			}
 			System.out.println();
+			//System.out.println(fieldCardElements + " " + molecularElements);
 			for (int fE = 0; fE < fieldCardElements.length; fE++)
 			{
 				for (int mE = 0; mE < molecularElements.length; mE++)
@@ -228,13 +228,13 @@ public class ObjectPool
 				}
 				return Molecular.values()[m];
 			}
-			for (boolean isFieldCardElementExist : isFieldCardElementsExist)
+			for (int i = 0; i < fieldCardElements.length; i++)
 			{
-				isFieldCardElementExist = true;
+				isFieldCardElementsExist[i] = true;
 			}
-			for (boolean isMolecularElementExist : isMolecularElementsExist)
+			for (int i = 0; i < fieldCardElements.length; i++)
 			{
-				isMolecularElementExist = true;
+				isFieldCardElementsExist[i] = true;
 			}
 		}
 		return null;

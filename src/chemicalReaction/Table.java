@@ -8,7 +8,7 @@ import org.newdawn.slick.Graphics;
 public class Table extends GameObject
 {
 	/** テーブルの手札の数 */
-	public static final int HANDCARD_NUM = 8;
+	public static final int HANDCARD_NUM = 20;
 	/** カードフレームのx座標 */
 	//public static final int[] FRAME_X = new int[FRAME_NUM];
 	/** カードフレームのy座標 */
