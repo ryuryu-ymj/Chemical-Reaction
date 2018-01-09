@@ -1,6 +1,7 @@
 package chemicalReaction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,7 +21,7 @@ public class ObjectPool
 	private static Table table;
 
 	/** 画面上のカードの最大値 */
-	public static final int CARD_MAX = 8;
+	public static final int CARD_MAX = Table.HANDCARD_NUM;
 	private int[] numOfCardInFrame = new int[Table.HANDCARD_NUM];
 
 	ObjectPool()
@@ -164,35 +165,77 @@ public class ObjectPool
 	 */
 	public Molecular checkFieldCardToMolecular()
 	{
-		ArrayList<Element> fieldCardElements = new ArrayList<>();
+		Element[] fieldCardElements = new Element[Table.fieldCards.size()];
 		for (int i = 0; i < Table.fieldCards.size(); i++)
 		{
-			fieldCardElements.add(Table.fieldCards.get(i).getElement());
+			fieldCardElements[i] = Table.fieldCards.get(i).getElement();
 		}
+		boolean[] isFieldCardElementsExist = new boolean[fieldCardElements.length];
+		for (int i = 0; i < fieldCardElements.length; i++)
+		{
+			isFieldCardElementsExist[i] = true;
+		}
+
 		for (int m = 0; m < Molecular.values().length; m++)
 		{
-			ArrayList<Element> MolecularElements = new ArrayList<>();
-			for (int e = 0; e < Molecular.values()[m].getElements().length; e++)
+			Element[] molecularElements = Molecular.values()[m].getElements();
+			boolean[] isMolecularElementsExist = new boolean[molecularElements.length];
+			for (int i = 0; i < molecularElements.length; i++)
 			{
-				MolecularElements.add(Molecular.values()[m].getElements()[e]);
+				isMolecularElementsExist[i] = true;
 			}
-			System.out.println(fieldCardElements + " " + MolecularElements);
-			for (int fE = 0; fE < fieldCardElements.size(); fE++)
+			//System.out.println(fieldCardElements + " " + molecularElements);
+			System.out.print("fieldCardElements ");
+			for (int i = 0; i < fieldCardElements.length; i++)
 			{
-				for (int mE = 0; mE < MolecularElements.size(); mE++)
+				System.out.print(fieldCardElements[i].getSymbol() + " " + isFieldCardElementsExist[i] + " ");
+			}
+			System.out.print("  molecularElements ");
+			for (int i = 0; i < molecularElements.length; i++)
+			{
+				System.out.print(molecularElements[i].getSymbol() + " " + isMolecularElementsExist[i] + " ");
+			}
+			System.out.println();
+			for (int fE = 0; fE < fieldCardElements.length; fE++)
+			{
+				for (int mE = 0; mE < molecularElements.length; mE++)
 				{
-					if (fieldCardElements.get(fE) == MolecularElements.get(mE))
+					if (fieldCardElements[fE] == molecularElements[mE] && isFieldCardElementsExist[fE] && isMolecularElementsExist[mE])
 					{
-						//fieldCardElements.remove(fE);
-						//MolecularElements.remove(mE);
-						System.out.println(fE + " " + mE);
+						//System.out.println(fieldCardElements.length + " " + molecularElements.length);
+						isFieldCardElementsExist[fE] = false;
+						isMolecularElementsExist[mE] = false;
+						//System.out.println(fE + " " + mE);
 					}
 				}
 			}
-			/*if (fieldCardElements.isEmpty() && MolecularElements.isEmpty())
+			check:
+			if (true)
 			{
+				for (boolean isFieldCardElementExist : isFieldCardElementsExist)
+				{
+					if (isFieldCardElementExist)
+					{
+						break check;
+					}
+				}
+				for (boolean isMolecularElementExist : isMolecularElementsExist)
+				{
+					if (isMolecularElementExist)
+					{
+						break check;
+					}
+				}
 				return Molecular.values()[m];
-			}*/
+			}
+			for (boolean isFieldCardElementExist : isFieldCardElementsExist)
+			{
+				isFieldCardElementExist = true;
+			}
+			for (boolean isMolecularElementExist : isMolecularElementsExist)
+			{
+				isMolecularElementExist = true;
+			}
 		}
 		return null;
 	}
