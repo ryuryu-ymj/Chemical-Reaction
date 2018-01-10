@@ -98,7 +98,7 @@ public class ObjectPool
 				{
 					if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON))
 					{
-						if (card[i].isHoldCard)
+						if (card[i].isHoldCard && card[i].active)
 						{
 							card[i].holdCard(gc);
 							Card.holdCardNum = i;
@@ -161,14 +161,15 @@ public class ObjectPool
 	}
 
 	/**
-	 * 場札が役と一致しているかを
+	 * 場札が役と一致しているかを調べ，一致していたらその分子を返す
+	 * @return 場札に一致する役　なければnull
 	 */
 	public Molecular checkFieldCardToMolecular()
 	{
-		Element[] fieldCardElements = new Element[Table.fieldCards.size()];
-		for (int i = 0; i < Table.fieldCards.size(); i++)
+		Element[] fieldCardElements = new Element[Table.getFieldCardsSize()];
+		for (int i = 0; i < Table.getFieldCardsSize(); i++)
 		{
-			fieldCardElements[i] = Table.fieldCards.get(i).getElement();
+			fieldCardElements[i] = Table.getOneOfFieldCards(i).getElement();
 		}
 		boolean[] isFieldCardElementsExist = new boolean[fieldCardElements.length];
 		for (int i = 0; i < fieldCardElements.length; i++)
@@ -184,17 +185,17 @@ public class ObjectPool
 			{
 				isMolecularElementsExist[i] = true;
 			}
-			System.out.print("fieldCardElements ");
+			//System.out.print("fieldCardElements ");
 			for (int i = 0; i < fieldCardElements.length; i++)
 			{
-				System.out.print(fieldCardElements[i].getSymbol() + " " + isFieldCardElementsExist[i] + " ");
+				//System.out.print(fieldCardElements[i].getSymbol() + " " + isFieldCardElementsExist[i] + " ");
 			}
-			System.out.print("  molecularElements ");
+			//System.out.print("  molecularElements ");
 			for (int i = 0; i < molecularElements.length; i++)
 			{
-				System.out.print(molecularElements[i].getSymbol() + " " + isMolecularElementsExist[i] + " ");
+				//System.out.print(molecularElements[i].getSymbol() + " " + isMolecularElementsExist[i] + " ");
 			}
-			System.out.println();
+			//System.out.println();
 			//System.out.println(fieldCardElements + " " + molecularElements);
 			for (int fE = 0; fE < fieldCardElements.length; fE++)
 			{
@@ -259,6 +260,18 @@ public class ObjectPool
 				card[i].startRotationAuto();
 			}
 		}
+	}
+
+	/**
+	 * 場札を一括消去する
+	 */
+	public void clearFieldCards()
+	{
+		for (int i = 0; i < Table.getFieldCardsSize(); i++)
+		{
+			Table.getOneOfFieldCards(i).delete();
+		}
+		Table.clearFieldCards();
 	}
 
 	/**

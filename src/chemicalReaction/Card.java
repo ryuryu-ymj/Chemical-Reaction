@@ -150,7 +150,7 @@ public class Card extends GameObject
 			default:
 				break;
 		}
-		System.out.print(this);
+		//System.out.print(this);
 	}
 
 	/**
@@ -230,6 +230,16 @@ public class Card extends GameObject
 		this.x = position.getPositionX();
 		this.y = position.getPositionY();
 		this.position = position;
+	}
+
+	/**
+	 * このカードを消去する（見えなくする）
+	 */
+	public void delete()
+	{
+		active = false;
+		x = 0;
+		y = 0;
 	}
 
 	public Element getElement()

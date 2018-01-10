@@ -8,7 +8,7 @@ import org.newdawn.slick.Graphics;
 public class Table extends GameObject
 {
 	/** テーブルの手札の数 */
-	public static final int HANDCARD_NUM = 20;
+	public static final int HANDCARD_NUM = 10;
 	/** カードフレームのx座標 */
 	//public static final int[] FRAME_X = new int[FRAME_NUM];
 	/** カードフレームのy座標 */
@@ -37,10 +37,10 @@ public class Table extends GameObject
 	public static final int BUTTON_Y = 337;
 
 	/** 場札 */
-	public static ArrayList<Card> fieldCards = new ArrayList<>();
+	private static ArrayList<Card> fieldCards = new ArrayList<>();
 
 	/** 手札 */
-	public static ArrayList<Card> handCards = new ArrayList<>();
+	private static ArrayList<Card> handCards = new ArrayList<>();
 
 	/**
 	 * コンストラクタ
@@ -91,6 +91,29 @@ public class Table extends GameObject
 			return CardPosition.FIELD.positionX + CardPosition.FIELD.width * fieldCards.indexOf(fieldCard) / fieldCards.size();
 		}
 		return CardPosition.FIELD.positionX;
+	}
+
+	public static void clearFieldCards()
+	{
+		fieldCards.clear();
+	}
+
+	public static int getFieldCardsSize()
+	{
+		return fieldCards.size();
+	}
+
+	static Card getOneOfFieldCards(int index)
+	{
+		try
+		{
+			return fieldCards.get(index);
+		}
+		catch (IndexOutOfBoundsException i)
+		{
+			System.out.println(i.getMessage());
+			return null;
+		}
 	}
 
 	public static void addHandCard(Card addHandCard)

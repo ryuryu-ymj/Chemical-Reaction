@@ -1,12 +1,16 @@
 package chemicalReaction;
 
 /**
- * 分子
+ * 分子などの化合物
  * @author ryuryu
  *
  */
 public enum Molecular
 {
+	He("He", "ヘリウム"),
+	Ne("Ne", "ネオン"),
+	Ar("Ar", "アルゴン"),
+
 	H2("H-H", "水素"),
 	O2("O-O", "酸素"),
 	Cl2("Cl-Cl", "塩素"),
@@ -43,8 +47,24 @@ public enum Molecular
 	SO2("S-O-O", "二酸化硫黄"),
 	O3("O-O-O", "オゾン"),
 
-	NaCl("Na-Cl", "塩化ナトリウム"),
 	CaO("Ca-O", "酸化カルシウム"),
+	CaF2("Ca-F-F", "フッ化カルシウム"),
+	AlF3("Al-F-F-F", "フッ化アルミニウム"),
+	NaF("Na-F", "フッ化ナトリウム"),
+	NaH("Na-H", "水素化ナトリウム"),
+	//NaI("Na-I", "ヨウ化ナトリウム"),
+	NaCl("Na-Cl", "塩化ナトリウム"),
+	NaOH("Na-O-H", "水酸化ナトリウム"),
+	NaHS("Na-H-S", "硫化水素ナトリウム"),
+	NaCN("Na-C-N", "シアン化ナトリウム"),
+	NaHF2("Na-H-F-F", "フッ化水素ナトリウム"),
+	MgCl2("Mg-Cl-Cl", "塩化マグネシウム"),
+	MgF2("Mg-F-F", "フッ化マグネシウム"),
+	MgH2("Mg-H-H", "水素化マグネシウム"),
+	//MgI2("Mg-I-I", "ヨウ化マグネシウム"),
+	MgO("Mg-O", "酸化マグネシウム"),
+	MgS("Mg-S", "硫化マグネシウム"),
+	
 	;
 
 	/** 分子式 */

@@ -63,6 +63,7 @@ public class Play extends GameState
 		if (objectPool.checkFieldCardToMolecular() != null)
 		{
 			System.out.println(objectPool.checkFieldCardToMolecular().getSymbol());
+			objectPool.clearFieldCards();
 		}
 		objectPool.dealCards();
 		objectPool.update(gc);
