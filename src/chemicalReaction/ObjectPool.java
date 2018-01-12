@@ -267,11 +267,42 @@ public class ObjectPool
 	 */
 	public void clearFieldCards()
 	{
+		boolean[] isFieldCardsDeleted = new boolean[Table.getFieldCardsSize()];
 		for (int i = 0; i < Table.getFieldCardsSize(); i++)
 		{
-			Table.getOneOfFieldCards(i).delete();
+			//Table.getOneOfFieldCards(i).startRotationAuto();
+			if (!Table.getOneOfFieldCards(i).isRotationAuto())
+			{
+				//Table.getOneOfFieldCards(i).putdownCard(CardPosition.DECKCARD);
+			}
+			Table.getOneOfFieldCards(i).putdownCard(CardPosition.DECKCARD);
+			if (Table.getOneOfFieldCards(i).x == CardPosition.DECKCARD.getPositionX() && Table.getOneOfFieldCards(i).y == CardPosition.DECKCARD.getPositionY())
+			{
+				Table.getOneOfFieldCards(i).delete();
+				isFieldCardsDeleted[i] = true;
+			}
 		}
-		Table.clearFieldCards();
+		for (int i = 0; i < Table.getFieldCardsSize(); i++)
+		{
+			//Table.removeFieldCard(Table.getOneOfFieldCards(i));
+		}
+		/*for (int i = 0; i < Table.getFieldCardsSize(); i++)
+		{
+			Table.getOneOfFieldCards(i).delete();
+		}*/
+		//Table.clearFieldCards();
+		i:
+		if (true)
+		{
+			for (boolean isFieldCardDeleted : isFieldCardsDeleted)
+			{
+				if (!isFieldCardDeleted)
+				{
+					break i;
+				}
+			}
+			Table.clearFieldCards();
+		}
 	}
 
 	/**

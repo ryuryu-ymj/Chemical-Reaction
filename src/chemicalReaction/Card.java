@@ -54,6 +54,10 @@ public class Card extends GameObject
 	 */
 	private double angle;
 	/**
+	 * 回転するときのangleの初期値
+	 */
+	private double firstAngle;
+	/**
 	 * そのカードをつかめるかどうか
 	 */
 	public boolean isHoldCard;
@@ -175,6 +179,7 @@ public class Card extends GameObject
 	 */
 	private void moveCardAuto(float goalX, float goalY, int moveSpeed)
 	{
+		isHoldCard = false;
 		double moveAngle = Math.atan2(goalY - y, goalX - x);
 		float speedX = (float) (moveSpeed * Math.cos(moveAngle));
 		float speedY = (float) (moveSpeed * Math.sin(moveAngle));
@@ -194,16 +199,25 @@ public class Card extends GameObject
 	}
 
 	/**
-	 * カードを自動で滑らかに1回転させる
+	 * カードを自動で滑らかに半回転させる
 	 */
 	private void rotationCardAuto()
 	{
 		angle += 0.1;
-		if (angle >= Math.PI * 2)
+		isHoldCard = false;
+		if (firstAngle == Math.PI && angle >= Math.PI * 2)
 		{
 			angle = 0;
 			isHoldCard = true;
 			isRotationAuto = false;
+			firstAngle = angle;
+		}
+		else if (firstAngle == 0 && angle >= Math.PI)
+		{
+			angle = Math.PI;
+			isHoldCard = true;
+			isRotationAuto = false;
+			firstAngle = angle;
 		}
 	}
 
@@ -226,6 +240,7 @@ public class Card extends GameObject
 		isRotationAuto = false;
 		isHoldCard = false;
 		angle = Math.PI;
+		firstAngle = angle;
 		this.element = element;
 		this.x = position.getPositionX();
 		this.y = position.getPositionY();
@@ -254,5 +269,14 @@ public class Card extends GameObject
 	public CardPosition getPosition()
 	{
 		return position;
+	}
+
+	/**
+	 *
+	 * @return そのカードを回転させるかどうか
+	 */
+	public boolean isRotationAuto()
+	{
+		return isRotationAuto;
 	}
 }
