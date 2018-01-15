@@ -50,6 +50,7 @@ public class Play extends GameState
 	{
 		objectPool.init();
 		counter = 0;
+		objectPool.startDealCards();
 	}
 
 	/**
@@ -65,7 +66,6 @@ public class Play extends GameState
 			System.out.println(objectPool.checkFieldCardToMolecular().getSymbol());
 			objectPool.startClearFieldCards();
 		}
-		objectPool.dealCards();
 		objectPool.update(gc);
 
 		counter++;

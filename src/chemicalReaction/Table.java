@@ -32,7 +32,7 @@ public class Table extends GameObject
 	//public static final int HANDCARD_WIDTH = 1247;
 
 	/** ボタンのx座標 */
-	public static final int BUTTON_X = 1210;
+	public static final int BUTTON_X = 10;//1210
 	/** ボタンのy座標 */
 	public static final int BUTTON_Y = 337;
 

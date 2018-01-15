@@ -42,6 +42,7 @@ public class Main extends BasicGame
 		title = new Title();
 		play = new Play();
 		state = State.Play;
+		play.init(gc);
 	}
 
 	/**

@@ -29,6 +29,11 @@ public class ObjectPool
 	/** clearFieldCardsメソッドのカウンタ */
 	private int counterOfClearFieldCards = 0;
 
+	/** dealCardsメソッドのスイッチ */
+	private boolean isDealCards = false;
+	/** dealCardsメソッドのカウンタ */
+	private int counterOfClearDealCards = 0;
+
 	private boolean isCanPutCardToField;
 
 	ObjectPool()
@@ -59,6 +64,10 @@ public class ObjectPool
 		if (isClearFieldCards)
 		{
 			clearFieldCards();
+		}
+		if (isDealCards)
+		{
+			dealCards();
 		}
 		updateObjects(card, gc);
 	}
@@ -261,28 +270,43 @@ public class ObjectPool
 	}
 
 	/**
+	 * カードを配り始める<P>
+	 * 呼び出しは一回でいい
+	 */
+	public void startDealCards()
+	{
+		isDealCards = true;
+		counterOfClearDealCards = 0;
+	}
+
+	/**
 	 * カードを配る
 	 */
-	public void dealCards()
+	private void dealCards()
 	{
 		for (int i = 0; i < Table.HANDCARD_NUM; i++)
 		{
-			if ((Play.counter - 20) / (i + 1) == 10)
+			if ((counterOfClearFieldCards - 20) / (i + 1) == 10)
 			{
 				if (card[i].getPosition() != CardPosition.HANDCARD)
 				{
 					card[i].putdownCard(CardPosition.HANDCARD);
 				}
 			}
-			else if ((Play.counter - 150) / (i + 1) == 10)
+			else if ((counterOfClearFieldCards - 150) / (i + 1) == 10)
 			{
 				card[i].startRotationAuto();
+				if (i == card.length - 1)
+				{
+					isDealCards = false;
+				}
 			}
 		}
+		counterOfClearFieldCards++;
 	}
 
 	/**
-	 * 場札を一括消去する<P>
+	 * 場札を一括消去し始める<P>
 	 * 呼び出しは一回でいい
 	 */
 	public void startClearFieldCards()

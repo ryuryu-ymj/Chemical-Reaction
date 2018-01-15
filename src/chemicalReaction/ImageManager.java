@@ -22,6 +22,10 @@ public class ImageManager
 	private static Image cardFrame;
 	/** ボタン */
 	private static Image button;
+	/** "OK"ボタン */
+	private static Image buttonOk;
+	/** "一枚引く"ボタン */
+	private static Image buttonDraw;
 	/** 切り札を出す場の枠 */
 	private static Image fieldFrame;
 	/** 手札を出す枠 */
@@ -48,7 +52,17 @@ public class ImageManager
 			SpriteSheet ss = new SpriteSheet("res/img/background.png", Card.WIDTH, Card.HEIGHT);
 			cardBack = ss.getSubImage(1, 0);
 			cardFrame = ss.getSubImage(0, 0);
-			button = ss.getSubImage(2, 0);
+			//button = ss.getSubImage(2, 0);
+		}
+		catch (SlickException e)
+		{
+			e.printStackTrace();
+		}
+
+		try
+		{
+			SpriteSheet ss = new SpriteSheet("res/img/button.png", 642, 189);
+			button = ss.getSubImage(0, 0);
 		}
 		catch (SlickException e)
 		{
