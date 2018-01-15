@@ -24,6 +24,13 @@ public class ObjectPool
 	public static final int CARD_MAX = Table.HANDCARD_NUM;
 	private int[] numOfCardInFrame = new int[Table.HANDCARD_NUM];
 
+	/** clearFieldCardsメソッドのスイッチ */
+	private boolean isClearFieldCards = false;
+	/** clearFieldCardsメソッドのカウンタ */
+	private int counterOfClearFieldCards = 0;
+
+	private boolean isCanPutCardToField;
+
 	ObjectPool()
 	{
 		card = new Card[CARD_MAX];
@@ -33,6 +40,7 @@ public class ObjectPool
 		}
 
 		table = new Table();
+		init();
 	}
 
 	/**
@@ -40,6 +48,7 @@ public class ObjectPool
 	 */
 	public void init()
 	{
+		isCanPutCardToField = true;
 	}
 
 	/**
@@ -47,6 +56,10 @@ public class ObjectPool
 	 */
 	public void update(GameContainer gc)
 	{
+		if (isClearFieldCards)
+		{
+			clearFieldCards();
+		}
 		updateObjects(card, gc);
 	}
 
@@ -62,6 +75,7 @@ public class ObjectPool
 		{
 			card[Card.holdCardNum].render(g);
 		}
+		table.renderDeckCard(g);
 	}
 
 	/**
@@ -127,6 +141,7 @@ public class ObjectPool
 			}
 			else // カードを置く
 			{
+				k:
 				for (int i = 0; i < Table.CardPosition.values().length; i++)
 				{
 					if (gc.getInput().getMouseX() > CardPosition.values()[i].getPositionX() && gc.getInput().getMouseX() < CardPosition.values()[i].getPositionX() + CardPosition.values()[i].getWidth())
@@ -147,9 +162,13 @@ public class ObjectPool
 										}
 									}
 								}
-								card[Card.holdCardNum].putdownCard(CardPosition.values()[i]);
-								Card.holdCardNum = -1;
-								break i;
+								if (isCanPutCardToField)
+								{
+									card[Card.holdCardNum].putdownCard(CardPosition.values()[i]);
+									Card.holdCardNum = -1;
+									break i;
+								}
+								break k;
 							}
 						}
 					}
@@ -263,46 +282,50 @@ public class ObjectPool
 	}
 
 	/**
+	 * 場札を一括消去する<P>
+	 * 呼び出しは一回でいい
+	 */
+	public void startClearFieldCards()
+	{
+		if (!isClearFieldCards)
+		{
+			counterOfClearFieldCards = 0;
+		}
+		isClearFieldCards = true;
+	}
+
+	/**
 	 * 場札を一括消去する
 	 */
-	public void clearFieldCards()
+	private void clearFieldCards()
 	{
-		boolean[] isFieldCardsDeleted = new boolean[Table.getFieldCardsSize()];
-		for (int i = 0; i < Table.getFieldCardsSize(); i++)
+		switch (counterOfClearFieldCards)
 		{
-			//Table.getOneOfFieldCards(i).startRotationAuto();
-			if (!Table.getOneOfFieldCards(i).isRotationAuto())
-			{
-				//Table.getOneOfFieldCards(i).putdownCard(CardPosition.DECKCARD);
-			}
-			Table.getOneOfFieldCards(i).putdownCard(CardPosition.DECKCARD);
-			if (Table.getOneOfFieldCards(i).x == CardPosition.DECKCARD.getPositionX() && Table.getOneOfFieldCards(i).y == CardPosition.DECKCARD.getPositionY())
-			{
-				Table.getOneOfFieldCards(i).delete();
-				isFieldCardsDeleted[i] = true;
-			}
-		}
-		for (int i = 0; i < Table.getFieldCardsSize(); i++)
-		{
-			//Table.removeFieldCard(Table.getOneOfFieldCards(i));
-		}
-		/*for (int i = 0; i < Table.getFieldCardsSize(); i++)
-		{
-			Table.getOneOfFieldCards(i).delete();
-		}*/
-		//Table.clearFieldCards();
-		i:
-		if (true)
-		{
-			for (boolean isFieldCardDeleted : isFieldCardsDeleted)
-			{
-				if (!isFieldCardDeleted)
+			case 0:
+				for (int i = 0; i < Table.getFieldCardsSize(); i++)
 				{
-					break i;
+					Table.getOneOfFieldCards(i).startRotationAuto();
 				}
-			}
-			Table.clearFieldCards();
+				isCanPutCardToField = false;
+				break;
+			case 30:
+				for (int i = 0; i < Table.getFieldCardsSize(); i++)
+				{
+					Table.getOneOfFieldCards(i).putdownCard(CardPosition.DECKCARD);
+				}
+				break;
+			case 70:
+				for (int i = 0; i < Table.getFieldCardsSize(); i++)
+				{
+					Table.getOneOfFieldCards(i).delete();
+				}
+				isCanPutCardToField = true;
+				Table.clearFieldCards();
+				isClearFieldCards = false;
+				break;
 		}
+
+		counterOfClearFieldCards++;
 	}
 
 	/**

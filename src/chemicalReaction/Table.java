@@ -67,6 +67,14 @@ public class Table extends GameObject
 		ImageManager.renderButton(BUTTON_X, BUTTON_Y);
 		ImageManager.renderCardFrame(CardPosition.THROWCARD.positionX, CardPosition.THROWCARD.positionY);
 		ImageManager.renderHandCardFrame(CardPosition.HANDCARD.positionX, CardPosition.HANDCARD.positionY);
+	}
+
+	/**
+	 * 山札を描画する
+	 * @param g
+	 */
+	public void renderDeckCard(Graphics g)
+	{
 		for (int i = 0; i < DECKCARD_NUM; i++)
 		{
 			ImageManager.renderCardBack(DECKCARD_X + (DECKCARD_NUM - 1 - i), DECKCARD_Y + (DECKCARD_NUM - 1 - i));
