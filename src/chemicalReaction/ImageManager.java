@@ -20,12 +20,10 @@ public class ImageManager
 	private static Image cardBack;
 	/** カードを置く枠の画像 */
 	private static Image cardFrame;
-	/** ボタン */
-	private static Image button;
 	/** "OK"ボタン */
-	private static Image buttonOk;
+	private static Image buttonOfOk;
 	/** "一枚引く"ボタン */
-	private static Image buttonDraw;
+	private static Image buttonOfDraw;
 	/** 切り札を出す場の枠 */
 	private static Image fieldFrame;
 	/** 手札を出す枠 */
@@ -52,7 +50,6 @@ public class ImageManager
 			SpriteSheet ss = new SpriteSheet("res/img/background.png", Card.WIDTH, Card.HEIGHT);
 			cardBack = ss.getSubImage(1, 0);
 			cardFrame = ss.getSubImage(0, 0);
-			//button = ss.getSubImage(2, 0);
 		}
 		catch (SlickException e)
 		{
@@ -62,7 +59,8 @@ public class ImageManager
 		try
 		{
 			SpriteSheet ss = new SpriteSheet("res/img/button.png", 642, 189);
-			button = ss.getSubImage(0, 0);
+			buttonOfOk = ss.getSubImage(0, 0);
+			buttonOfDraw = ss.getSubImage(0, 1);
 		}
 		catch (SlickException e)
 		{
@@ -112,19 +110,44 @@ public class ImageManager
 		cardFrame.draw(x, y);
 	}
 
+	/**
+	 * 切り札を出す場の枠の画像 を描画する
+	 * @param x 画像を表示するx座標
+	 * @param y 画像を表示するy座標
+	 */
 	public static void renderField(float x, float y)
 	{
 		fieldFrame.draw(x, y);
 	}
 
-	public static void renderButton(float x, float y)
-	{
-		button.draw(x, y);
-	}
-
+	/**
+	 * 手札を出す枠の画像 を描画する
+	 * @param x 画像を表示するx座標
+	 * @param y 画像を表示するy座標
+	 */
 	public static void renderHandCardFrame(float x, float y)
 	{
 		handCardFrame.draw(x, y);
+	}
+
+	/**
+	 * "一枚引く"ボタンの画像 を描画する
+	 * @param x 画像を表示するx座標
+	 * @param y 画像を表示するy座標
+	 */
+	public static void renderButtonOfDraw(float x, float y)
+	{
+		buttonOfDraw.draw(x, y, 200, 50);
+	}
+
+	/**
+	 * "OK"ボタンの画像 を描画する
+	 * @param x 画像を表示するx座標
+	 * @param y 画像を表示するy座標
+	 */
+	public static void renderButtonOfOk(float x, float y)
+	{
+		buttonOfOk.draw(x, y, 200, 50);
 	}
 
 	/**
@@ -148,20 +171,37 @@ public class ImageManager
 
 	/**
 	 *
-	 * @return ボタンの画像
+	 * @return 切り札を出す場の枠の画像
 	 */
-	public static Image getButton()
-	{
-		return button;
-	}
-
 	public static Image getField()
 	{
 		return fieldFrame;
 	}
 
+	/**
+	 *
+	 * @return 手札を出す枠の画像
+	 */
 	public static Image getHandCardFrame()
 	{
 		return handCardFrame;
+	}
+
+	/**
+	 *
+	 * @return "OK"ボタンの画像
+	 */
+	public static Image getButtonOfOk()
+	{
+		return buttonOfOk;
+	}
+
+	/**
+	 *
+	 * @return "一枚引く"ボタンの画像
+	 */
+	public static Image getButtonOfDraw()
+	{
+		return buttonOfDraw;
 	}
 }

@@ -32,7 +32,7 @@ public class ObjectPool
 	/** dealCardsメソッドのスイッチ */
 	private boolean isDealCards = false;
 	/** dealCardsメソッドのカウンタ */
-	private int counterOfClearDealCards = 0;
+	private int counterOfDealCards = 0;
 
 	private boolean isCanPutCardToField;
 
@@ -85,6 +85,7 @@ public class ObjectPool
 			card[Card.holdCardNum].render(g);
 		}
 		table.renderDeckCard(g);
+		table.renderButtonOfOk(g);
 	}
 
 	/**
@@ -276,7 +277,7 @@ public class ObjectPool
 	public void startDealCards()
 	{
 		isDealCards = true;
-		counterOfClearDealCards = 0;
+		counterOfDealCards = 0;
 	}
 
 	/**
@@ -286,14 +287,14 @@ public class ObjectPool
 	{
 		for (int i = 0; i < Table.HANDCARD_NUM; i++)
 		{
-			if ((counterOfClearFieldCards - 20) / (i + 1) == 10)
+			if ((counterOfDealCards - 20) / (i + 1) == 10)
 			{
 				if (card[i].getPosition() != CardPosition.HANDCARD)
 				{
 					card[i].putdownCard(CardPosition.HANDCARD);
 				}
 			}
-			else if ((counterOfClearFieldCards - 150) / (i + 1) == 10)
+			else if ((counterOfDealCards - 150) / (i + 1) == 10)
 			{
 				card[i].startRotationAuto();
 				if (i == card.length - 1)
@@ -302,7 +303,7 @@ public class ObjectPool
 				}
 			}
 		}
-		counterOfClearFieldCards++;
+		counterOfDealCards++;
 	}
 
 	/**
@@ -350,6 +351,42 @@ public class ObjectPool
 		}
 
 		counterOfClearFieldCards++;
+	}
+
+	/**
+	 * ボタンを表示し，押されたかどうかを判定する
+	 * @param gc
+	 * @param button 表示するボタン
+	 * @return ボタンが押されたかどうか
+	 */
+	public boolean checkButtonPushed(GameContainer gc, Table.Button button)
+	{
+		button.isRender = true;
+		if (gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON))
+		{
+			if (gc.getInput().getMouseX() > button.getX() && gc.getInput().getMouseX() < button.getX() + button.getWidth())
+			{
+				if (gc.getInput().getMouseY() > button.getY() && gc.getInput().getMouseY() < button.getY() + button.getHeight())
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public void drawCard()
+	{
+
+	}
+
+	/**
+	 *
+	 * @return clearFieldCardsメソッドのスイッチ
+	 */
+	public boolean isClearFieldCards()
+	{
+		return isClearFieldCards;
 	}
 
 	/**
