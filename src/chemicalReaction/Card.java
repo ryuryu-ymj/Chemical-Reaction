@@ -253,6 +253,7 @@ public class Card extends GameObject
 	public void delete()
 	{
 		active = false;
+		position = CardPosition.DECKCARD;
 		x = 0;
 		y = 0;
 	}

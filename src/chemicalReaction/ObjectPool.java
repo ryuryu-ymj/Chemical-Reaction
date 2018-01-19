@@ -21,8 +21,8 @@ public class ObjectPool
 	private static Table table;
 
 	/** 画面上のカードの最大値 */
-	public static final int CARD_MAX = Table.HANDCARD_NUM;
-	private int[] numOfCardInFrame = new int[Table.HANDCARD_NUM];
+	public static final int CARD_MAX = 20;
+	//private int[] numOfCardInFrame = new int[Table.HANDCARD_NUM];
 
 	/** clearFieldCardsメソッドのスイッチ */
 	private boolean isClearFieldCards = false;
@@ -34,7 +34,17 @@ public class ObjectPool
 	/** dealCardsメソッドのカウンタ */
 	private int counterOfDealCards = 0;
 
+	/** drawDeckCardメソッドのスイッチ */
+	private boolean isDrawDeckCard = false;
+	/** drawDeckCardメソッドのカウンタ */
+	private int counterOfDrawDeckCard = 0;
+	/** drawDeckCardメソッドで引いたカードの配列番号 */
+	private int newCardNum = 0;
+
+	/** 場にカードを置けるかどうか */
 	private boolean isCanPutCardToField;
+	/** 山札からカードを引けるかどうか */
+	private boolean isCanDrawDeckCard;
 
 	ObjectPool()
 	{
@@ -54,6 +64,7 @@ public class ObjectPool
 	public void init()
 	{
 		isCanPutCardToField = true;
+		isCanDrawDeckCard = false;
 	}
 
 	/**
@@ -69,7 +80,12 @@ public class ObjectPool
 		{
 			dealCards();
 		}
+		if (isDrawDeckCard)
+		{
+			drawDeckCard();
+		}
 		updateObjects(card, gc);
+		//System.out.println(isDealCards + " " + isCanDrawDeckCard + " " + isDrawDeckCard);
 	}
 
 	/**
@@ -85,14 +101,14 @@ public class ObjectPool
 			card[Card.holdCardNum].render(g);
 		}
 		table.renderDeckCard(g);
-		table.renderButtonOfOk(g);
+		table.renderButton(g);
 	}
 
 	/**
 	 * 新しいカードを作る
 	 * @param element カードの種類
 	 * @param position カードの位置
-	 * @return cardの配列番号
+	 * @return cardの配列番号　なかったら-1
 	 */
 	public static int newCard(Element element, CardPosition position)
 	{
@@ -278,6 +294,10 @@ public class ObjectPool
 	{
 		isDealCards = true;
 		counterOfDealCards = 0;
+		for (int i = 0; i < Table.HANDCARD_NUM; i++)
+		{
+			newCard(Element.getRandomOne(), Table.CardPosition.DECKCARD);
+		}
 	}
 
 	/**
@@ -297,9 +317,10 @@ public class ObjectPool
 			else if ((counterOfDealCards - 150) / (i + 1) == 10)
 			{
 				card[i].startRotationAuto();
-				if (i == card.length - 1)
+				if (i == Table.HANDCARD_NUM - 1)
 				{
 					isDealCards = false;
+					isCanDrawDeckCard = true;
 				}
 			}
 		}
@@ -375,9 +396,51 @@ public class ObjectPool
 		return false;
 	}
 
-	public void drawCard()
+	/**
+	 * カードを山札から一枚手札に引き始める
+	 */
+	public void startDrawDeckCard()
 	{
+		if (isCanDrawDeckCard)
+		{
+			newCardNum = newCard(Element.getRandomOne(), Table.CardPosition.DECKCARD);
+			if (newCardNum != -1)
+			{
+				card[newCardNum].putdownCard(Table.CardPosition.HANDCARD);
+			}
+			isCanDrawDeckCard = false;
+			isDrawDeckCard = true;
+			counterOfDrawDeckCard = 0;
+		}
+	}
 
+	/**
+	 * カードを山札から一枚手札に引く
+	 */
+	private void drawDeckCard()
+	{
+		if (counterOfDrawDeckCard == 70)
+		{
+			card[newCardNum].startRotationAuto();
+			isDrawDeckCard = false;
+			isCanDrawDeckCard = true;
+		}
+
+		counterOfDrawDeckCard++;
+	}
+
+	/**
+	 * 捨て札を消去する
+	 */
+	public void clearThrowCard()
+	{
+		for (int i = 0; i < card.length; i++)
+		{
+			if (card[i].active && card[i].getPosition() == CardPosition.THROWCARD)
+			{
+				card[i].delete();
+			}
+		}
 	}
 
 	/**

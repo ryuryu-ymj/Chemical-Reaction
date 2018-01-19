@@ -85,12 +85,17 @@ public class Table extends GameObject
 		}
 	}
 
-	public void renderButtonOfOk(Graphics g)
+	public void renderButton(Graphics g)
 	{
 		if (Button.BUTTON_OK.isRender)
 		{
 			ImageManager.renderButtonOfOk(Button.BUTTON_OK.x, Button.BUTTON_OK.y);
 			Button.BUTTON_OK.isRender = false;
+		}
+		if (Button.BUTTON_DRAW.isRender)
+		{
+			ImageManager.renderButtonOfDraw(Button.BUTTON_DRAW.x, Button.BUTTON_DRAW.y);
+			Button.BUTTON_DRAW.isRender = false;
 		}
 	}
 
@@ -164,7 +169,7 @@ public class Table extends GameObject
 	public static enum Button
 	{
 		BUTTON_OK(535, 425, 200, 50),
-		BUTTON_DRAW(535, 425, 200, 50),
+		BUTTON_DRAW(35, 400, 200, 50),
 		;
 
 		/** ボタンの左上の頂点の座標 */

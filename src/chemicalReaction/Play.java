@@ -33,10 +33,10 @@ public class Play extends GameState
 	{
 		super();
 		objectPool = new ObjectPool();
-		for (int i = 0; i < Table.HANDCARD_NUM; i++)
+		/*for (int i = 0; i < Table.HANDCARD_NUM; i++)
 		{
 			ObjectPool.newCard(Element.getRandomOne(), Table.CardPosition.DECKCARD);
-		}
+		}*/
 		gameImage = new ImageManager();
 		//element = Element.Ag;
 		molecular = Molecular.NH3;
@@ -72,6 +72,11 @@ public class Play extends GameState
 				}
 			}
 		}
+		if(objectPool.checkButtonPushed(gc, Table.Button.BUTTON_DRAW))
+		{
+			objectPool.startDrawDeckCard();;
+		}
+		objectPool.clearThrowCard();
 		objectPool.update(gc);
 
 		counter++;
