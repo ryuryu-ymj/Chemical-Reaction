@@ -46,6 +46,8 @@ public class ObjectPool
 	/** 山札からカードを引けるかどうか */
 	private boolean isCanDrawDeckCard;
 
+	private GameTurnManager gameTurn;
+
 	ObjectPool()
 	{
 		card = new Card[CARD_MAX];
@@ -55,6 +57,7 @@ public class ObjectPool
 		}
 
 		table = new Table();
+		gameTurn = new GameTurnManager();
 		init();
 	}
 
