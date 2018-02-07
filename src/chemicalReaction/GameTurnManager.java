@@ -11,6 +11,11 @@ public class GameTurnManager
 
 	private GameTurn gameTurn;
 
+	GameTurnManager()
+	{
+		init();
+	}
+
 	/**
 	 * 初期化処理
 	 */
