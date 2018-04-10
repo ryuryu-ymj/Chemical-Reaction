@@ -1,5 +1,7 @@
 package chemicalReaction;
 
+import java.util.ArrayList;
+
 /**
  * 分子などの化合物
  * @author ryuryu
@@ -49,7 +51,7 @@ public enum Molecular
 
 	AlF3("Al-F-F-F", "フッ化アルミニウム"),
 	NaF("Na-F", "フッ化ナトリウム"),
-	NaH("Na-H", "水素化ナトリウム"),
+	//NaH("Na-H", "水素化ナトリウム"),
 	//NaI("Na-I", "ヨウ化ナトリウム"),
 	NaCl("Na-Cl", "塩化ナトリウム"),
 	NaOH("Na-O-H", "水酸化ナトリウム"),
@@ -89,7 +91,7 @@ public enum Molecular
 	 * コンストラクタ
 	 * @param name 分子の日本語名
 	 */
-	private Molecular(String struction, String name)
+	Molecular(String struction, String name)
 	{
 		symbol = toString();
 		this.name = name;
@@ -127,4 +129,67 @@ public enum Molecular
 	{
 		return elements;
 	}
+
+	public static Molecular checkCard(Card[] cards)
+    {
+        Element[] cardElements = new Element[cards.length];
+        for (int i = 0; i < cards.length; i++)
+        {
+            cardElements[i] = cards[i].getElement();
+        }
+        boolean[] isCardElementsExist = new boolean[cardElements.length];
+        for (int i = 0; i < cardElements.length; i++)
+        {
+            isCardElementsExist[i] = true;
+        }
+
+        for (int m = 0; m < values().length; m++)
+        {
+            Element[] molecularElements = values()[m].getElements();
+            boolean[] isMolecularElementsExist = new boolean[molecularElements.length];
+            for (int i = 0; i < molecularElements.length; i++)
+            {
+                isMolecularElementsExist[i] = true;
+            }
+            for (int fE = 0; fE < cardElements.length; fE++)
+            {
+                for (int mE = 0; mE < molecularElements.length; mE++)
+                {
+                    if (cardElements[fE] == molecularElements[mE] && isCardElementsExist[fE] && isMolecularElementsExist[mE])
+                    {
+                        isCardElementsExist[fE] = false;
+                        isMolecularElementsExist[mE] = false;
+                    }
+                }
+            }
+            check:
+            if (true)
+            {
+                for (boolean isFieldCardElementExist : isCardElementsExist)
+                {
+                    if (isFieldCardElementExist)
+                    {
+                        break check;
+                    }
+                }
+                for (boolean isMolecularElementExist : isMolecularElementsExist)
+                {
+                    if (isMolecularElementExist)
+                    {
+                        break check;
+                    }
+                }
+                return values()[m];
+            }
+            for (int i = 0; i < cardElements.length; i++)
+            {
+                isCardElementsExist[i] = true;
+            }
+            for (int i = 0; i < cardElements.length; i++)
+            {
+                isCardElementsExist[i] = true;
+            }
+        }
+        return null;
+    }
 }

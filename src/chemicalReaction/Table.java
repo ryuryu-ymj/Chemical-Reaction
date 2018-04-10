@@ -142,6 +142,11 @@ public class Table extends GameObject
 		}
 	}
 
+	public static ArrayList<Card> getFieldCards()
+	{
+		return fieldCards;
+	}
+
 	public static void addHandCard(Card addHandCard)
 	{
 		handCards.add(addHandCard);
@@ -166,7 +171,7 @@ public class Table extends GameObject
 	 * @author ryuryu
 	 *
 	 */
-	public static enum Button
+	public enum Button
 	{
 		BUTTON_OK(535, 425, 200, 50),
 		BUTTON_DRAW(35, 400, 200, 50),
@@ -239,7 +244,7 @@ public class Table extends GameObject
 	 * @author ryuryu
 	 *
 	 */
-	public static enum CardStatus
+	public enum CardStatus
 	{
 		/** 手札 */
 		HANDCARD,
@@ -257,7 +262,7 @@ public class Table extends GameObject
 	 * @author ryuryu
 	 *
 	 */
-	public static enum CardPosition
+	public enum CardPosition
 	{
 		HANDCARD(50, 623, Card.HEIGHT, 1247, CardStatus.HANDCARD),
 		/** 山札 */
@@ -284,7 +289,7 @@ public class Table extends GameObject
 		 * @param height ポジションの縦幅
 		 * @param width ポジションの横幅
 		 */
-		private CardPosition(int positionX, int positionY, int height, int width, CardStatus status)
+		CardPosition(int positionX, int positionY, int height, int width, CardStatus status)
 		{
 			this.positionX = positionX;
 			this.positionY = positionY;

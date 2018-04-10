@@ -212,81 +212,9 @@ public class ObjectPool
 	 * 場札が役と一致しているかを調べ，一致していたらその分子を返す
 	 * @return 場札に一致する役　なければnull
 	 */
-	public Molecular checkFieldCardToMolecular()
+	public Molecular checkFieldCard()
 	{
-		Element[] fieldCardElements = new Element[Table.getFieldCardsSize()];
-		for (int i = 0; i < Table.getFieldCardsSize(); i++)
-		{
-			fieldCardElements[i] = Table.getOneOfFieldCards(i).getElement();
-		}
-		boolean[] isFieldCardElementsExist = new boolean[fieldCardElements.length];
-		for (int i = 0; i < fieldCardElements.length; i++)
-		{
-			isFieldCardElementsExist[i] = true;
-		}
-
-		for (int m = 0; m < Molecular.values().length; m++)
-		{
-			Element[] molecularElements = Molecular.values()[m].getElements();
-			boolean[] isMolecularElementsExist = new boolean[molecularElements.length];
-			for (int i = 0; i < molecularElements.length; i++)
-			{
-				isMolecularElementsExist[i] = true;
-			}
-			//System.out.print("fieldCardElements ");
-			for (int i = 0; i < fieldCardElements.length; i++)
-			{
-				//System.out.print(fieldCardElements[i].getSymbol() + " " + isFieldCardElementsExist[i] + " ");
-			}
-			//System.out.print("  molecularElements ");
-			for (int i = 0; i < molecularElements.length; i++)
-			{
-				//System.out.print(molecularElements[i].getSymbol() + " " + isMolecularElementsExist[i] + " ");
-			}
-			//System.out.println();
-			//System.out.println(fieldCardElements + " " + molecularElements);
-			for (int fE = 0; fE < fieldCardElements.length; fE++)
-			{
-				for (int mE = 0; mE < molecularElements.length; mE++)
-				{
-					if (fieldCardElements[fE] == molecularElements[mE] && isFieldCardElementsExist[fE] && isMolecularElementsExist[mE])
-					{
-						//System.out.println(fieldCardElements.length + " " + molecularElements.length);
-						isFieldCardElementsExist[fE] = false;
-						isMolecularElementsExist[mE] = false;
-						//System.out.println(fE + " " + mE);
-					}
-				}
-			}
-			check:
-			if (true)
-			{
-				for (boolean isFieldCardElementExist : isFieldCardElementsExist)
-				{
-					if (isFieldCardElementExist)
-					{
-						break check;
-					}
-				}
-				for (boolean isMolecularElementExist : isMolecularElementsExist)
-				{
-					if (isMolecularElementExist)
-					{
-						break check;
-					}
-				}
-				return Molecular.values()[m];
-			}
-			for (int i = 0; i < fieldCardElements.length; i++)
-			{
-				isFieldCardElementsExist[i] = true;
-			}
-			for (int i = 0; i < fieldCardElements.length; i++)
-			{
-				isFieldCardElementsExist[i] = true;
-			}
-		}
-		return null;
+	    return Molecular.checkCard(Table.getFieldCards().toArray(new Card[Table.getFieldCardsSize()]));
 	}
 
 	/**
