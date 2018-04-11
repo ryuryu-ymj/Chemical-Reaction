@@ -1,5 +1,6 @@
 package chemicalReaction;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -74,10 +75,24 @@ public enum Element
 		return name;
 	}
 
+	/**
+	 * 元素を１つランダムに選ぶ
+	 * @return 選ばれた元素
+	 */
 	public static Element getRandomOne()
 	{
-		int index = new Random().nextInt(values().length);
-		return values()[index];
+	    //Element[] elements = {H, H, H, O, O, O, He, Ne, Ar};
+        ArrayList<Element> elements = new ArrayList<>();
+        for (int i = 0; i < Molecular.values().length; i++)
+        {
+            for (int j = 0; j < Molecular.values()[i].getElements().length; j++)
+            {
+                elements.add(Molecular.values()[i].getElements()[j]);
+            }
+        }
+        //System.out.println(elements);
+		int index = new Random().nextInt(elements.size());
+		return elements.get(index);
 	}
 
 	public static Element getFromSymbol(String symbol)

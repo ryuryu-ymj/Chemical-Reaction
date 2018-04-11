@@ -130,6 +130,11 @@ public enum Molecular
 		return elements;
 	}
 
+	/**
+	 * カードが役に一致するかどうかを判定する
+	 * @param cards 調べるカード
+	 * @return 一致した役　しなかったらnull
+	 */
 	public static Molecular checkCard(Card[] cards)
     {
         Element[] cardElements = new Element[cards.length];
