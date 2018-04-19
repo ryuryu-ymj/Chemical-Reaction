@@ -98,10 +98,10 @@ public class Play extends GameState
     /**
      * ステップごとの描画処理.
      */
-    public void render(GameContainer gc, Graphics g)
+    public void render(GameContainer gc, Graphics g, ImageManager im)
             throws SlickException
     {
-        objectPool.render(g);
+        objectPool.render(g, im);
     }
 
     public void setPlayMode(PlayMode playMode)

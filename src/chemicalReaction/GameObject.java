@@ -37,15 +37,15 @@ public abstract class GameObject
 	/**
 	 * ステップごとの描画処理.
 	 */
-	public abstract void render(Graphics g);
+	public abstract void render(Graphics g, ImageManager im);
 
 	/**
 	 * オブジェクトがプレイ領域内にいるかどうかを確認し,
 	 * 領域外に出ている場合は,インスタンスを無効にする.
 	 *
-	 * @param mergin
+	 * @param margin
 	 */
-	void checkLeaving(int mergin)
+	void checkLeaving(int margin)
 	{
 	}
 }

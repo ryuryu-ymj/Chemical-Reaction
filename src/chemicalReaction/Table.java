@@ -81,11 +81,14 @@ public class Table extends GameObject
     }
 
     @Override
-    public void render(Graphics g)
+    public void render(Graphics g, ImageManager im)
     {
-        ImageManager.renderField(CardPosition.FIELD.positionX, CardPosition.FIELD.positionY);
-        ImageManager.renderCardFrame(CardPosition.THROWCARD.positionX, CardPosition.THROWCARD.positionY);
-        ImageManager.renderHandCardFrame(CardPosition.HANDCARD.positionX, CardPosition.HANDCARD.positionY);
+        im.renderCardFrame(CardPosition.FIELD.positionX, CardPosition.FIELD.positionY,
+                CardPosition.FIELD.width, CardPosition.FIELD.height);
+        im.renderCardFrame(CardPosition.THROWCARD.positionX, CardPosition.THROWCARD.positionY,
+                CardPosition.THROWCARD.width, CardPosition.THROWCARD.height);
+        im.renderCardFrame(CardPosition.HANDCARD.positionX, CardPosition.HANDCARD.positionY,
+                CardPosition.HANDCARD.width, CardPosition.HANDCARD.height);
     }
 
     /**
@@ -93,24 +96,24 @@ public class Table extends GameObject
      *
      * @param g
      */
-    public void renderDeckCard(Graphics g)
+    public void renderDeckCard(Graphics g, ImageManager im)
     {
         for (int i = 0; i < DECKCARD_NUM; i++)
         {
-            ImageManager.renderCardBack(DECKCARD_X + (DECKCARD_NUM - 1 - i), DECKCARD_Y + (DECKCARD_NUM - 1 - i));
+            im.renderCardBack(DECKCARD_X + (DECKCARD_NUM - 1 - i), DECKCARD_Y + (DECKCARD_NUM - 1 - i), Card.WIDTH, Card.HEIGHT);
         }
     }
 
-    public void renderButton(Graphics g)
+    public void renderButton(Graphics g, ImageManager im)
     {
         if (Button.BUTTON_OK.isRender)
         {
-            ImageManager.renderButtonOfOk(Button.BUTTON_OK.x, Button.BUTTON_OK.y);
+            im.renderButtonOfOk(Button.BUTTON_OK.x, Button.BUTTON_OK.y);
             Button.BUTTON_OK.isRender = false;
         }
         if (Button.BUTTON_DRAW.isRender)
         {
-            ImageManager.renderButtonOfDraw(Button.BUTTON_DRAW.x, Button.BUTTON_DRAW.y);
+            im.renderButtonOfDraw(Button.BUTTON_DRAW.x, Button.BUTTON_DRAW.y);
             Button.BUTTON_DRAW.isRender = false;
         }
     }

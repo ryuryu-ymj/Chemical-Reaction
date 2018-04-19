@@ -14,17 +14,17 @@ import chemicalReaction.Table.CardStatus;
 public class Card extends GameObject
 {
     /**
-     * 縦幅　余白も入れて
+     * 縦幅
      */
-    public static final int HEIGHT = 227;
+    public static final int HEIGHT = 200;
     /**
-     * 横幅　余白も入れて
+     * 横幅
      */
-    public static final int WIDTH = 170;
+    public static final int WIDTH = 140;
     /**
      * 余白の枠の幅
      */
-    public static final int SPACE_BREADTH = 23;
+    //public static final int SPACE_BREADTH = 23;
     /**
      * そのカードの元素
      */
@@ -101,16 +101,16 @@ public class Card extends GameObject
     }
 
     @Override
-    public void render(Graphics g)
+    public void render(Graphics g, ImageManager im)
     {
         if (angle >= Math.PI / 2 && angle < Math.PI * 3 / 2)
         {
-            ImageManager.getCardBack().draw(x + WIDTH / 2 - (float) (WIDTH * Math.cos(angle)) / 2, y, (float) (WIDTH * Math.cos(angle)), HEIGHT);
+            im.renderCardBack(x + WIDTH / 2 - (float) (WIDTH * Math.cos(angle)) / 2, y, (float) (WIDTH * Math.cos(angle)), HEIGHT);
             //System.out.println(x + " " + y);
         }
         else
         {
-            ImageManager.getCard(element.getNum()).draw(x + WIDTH / 2 - (float) (WIDTH * Math.cos(angle)) / 2, y, (float) (WIDTH * Math.cos(angle)), HEIGHT);
+            im.renderCard(element.getNum(), x + WIDTH / 2 - (float) (WIDTH * Math.cos(angle)) / 2, y, (float) (WIDTH * Math.cos(angle)), HEIGHT);
         }
         //img[num].draw((float)(x - width / 2 / 3.5), y - height / 2 / 5, (float)(width * 4.5 / 3.5), height * 6 / 5);
         //System.out.println(CardSet.getSymbolFromNum(0));

@@ -27,7 +27,7 @@ public class Title extends GameState
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g) throws SlickException
+	public void render(GameContainer gc, Graphics g, ImageManager im) throws SlickException
 	{
 		// TODO 自動生成されたメソッド・スタブ
 		

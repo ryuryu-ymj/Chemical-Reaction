@@ -114,17 +114,17 @@ public class ObjectPool
     /**
      * ステップごとの描画処理.
      */
-    public void render(Graphics g)
+    public void render(Graphics g, ImageManager im)
     {
-        table.render(g);
-        renderObjects(card, g);
+        table.render(g, im);
+        renderObjects(card, g, im);
         // 今つかんでいるカードを再描画
         if (Card.holdCardNum != -1)
         {
-            card[Card.holdCardNum].render(g);
+            card[Card.holdCardNum].render(g, im);
         }
-        table.renderDeckCard(g);
-        table.renderButton(g);
+        table.renderDeckCard(g, im);
+        table.renderButton(g, im);
     }
 
     /**
@@ -440,13 +440,13 @@ public class ObjectPool
      *
      * @param object ゲームオブジェクトの配列
      */
-    private void renderObjects(GameObject[] object, Graphics g)
+    private void renderObjects(GameObject[] object, Graphics g, ImageManager im)
     {
         for (GameObject obj : object)
         {
             if (obj.active)
             {
-                obj.render(g);
+                obj.render(g, im);
             }
         }
     }

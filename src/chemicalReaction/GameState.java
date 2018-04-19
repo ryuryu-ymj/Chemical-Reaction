@@ -37,6 +37,6 @@ public abstract class GameState
 	/**
 	 * 描画処理を行う.
 	 */
-	public abstract void render(GameContainer gc, Graphics g)
+	public abstract void render(GameContainer gc, Graphics g, ImageManager im)
 			throws SlickException;
 }

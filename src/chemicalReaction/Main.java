@@ -25,6 +25,7 @@ public class Main extends BasicGame
         Title,
         Play
     }
+    ImageManager im;
 
 	/**
 	 * コンストラクタ
@@ -47,6 +48,7 @@ public class Main extends BasicGame
 		play = new Play();
 		state = State.Play;
 		play.init(gc);
+		im = new ImageManager();
 	}
 
 	/**
@@ -78,10 +80,10 @@ public class Main extends BasicGame
 		switch (state)
 		{
 			case Title:
-				title.render(gc, g);
+				title.render(gc, g, im);
 				break;
 			case Play:
-				play.render(gc, g);
+				play.render(gc, g, im);
 				break;
 		}
 
