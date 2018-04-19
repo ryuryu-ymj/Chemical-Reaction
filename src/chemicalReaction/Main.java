@@ -20,7 +20,11 @@ public class Main extends BasicGame
 	Play play;
 	/** ゲームシーン */
 	private State state;
-	Element element;
+	public enum State
+    {
+        Title,
+        Play
+    }
 
 	/**
 	 * コンストラクタ

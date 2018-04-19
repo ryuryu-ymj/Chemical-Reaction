@@ -6,6 +6,11 @@ import org.newdawn.slick.Graphics;
 import chemicalReaction.Table.CardPosition;
 import chemicalReaction.Table.CardStatus;
 
+/**
+ * 元素カード
+ *
+ * @author ryuryu
+ */
 public class Card extends GameObject
 {
     /**

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
+/**
+ *
+ */
 public class Table extends GameObject
 {
     /**

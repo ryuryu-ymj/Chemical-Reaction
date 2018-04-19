@@ -21,12 +21,17 @@ public class Play extends GameState
      * フレームカウンタ
      */
     public static int counter;
+    private enum PlayMode
+    {
+        MOLECULAR,
+        ELEMENTRAMP,
+    }
+    PlayMode playMode;
 
     ObjectPool objectPool;
     ImageManager gameImage;
     //Element element;
     //ChemicalEquation chemicalEquation;
-    Molecular molecular;
 
     /**
      * コンストラクタ
@@ -41,7 +46,6 @@ public class Play extends GameState
 		}*/
         gameImage = new ImageManager();
         //element = Element.Ag;
-        molecular = Molecular.NH3;
     }
 
     /**
@@ -98,5 +102,10 @@ public class Play extends GameState
             throws SlickException
     {
         objectPool.render(g);
+    }
+
+    public void setPlayMode(PlayMode playMode)
+    {
+        this.playMode = playMode;
     }
 }

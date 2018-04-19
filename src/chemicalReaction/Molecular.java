@@ -1,6 +1,5 @@
 package chemicalReaction;
 
-import java.util.ArrayList;
 
 /**
  * 分子などの化合物
