@@ -32,14 +32,6 @@ public class ImageManager
      * "一枚引く"ボタン
      */
     private static Image buttonOfDraw;
-    /**
-     * 切り札を出す場の枠
-     */
-    private static Image fieldFrame;
-    /**
-     * 手札を出す枠
-     */
-    private static Image handCardFrame;
 
     /**
      * 画像の余白の幅
@@ -64,7 +56,7 @@ public class ImageManager
 
         try
         {
-            SpriteSheet ss = new SpriteSheet("res/img/background.png", Card.WIDTH, Card.HEIGHT);
+            SpriteSheet ss = new SpriteSheet("res/img/card2.png", 265, 354);
             cardBack = ss.getSubImage(1, 0);
             cardFrame = ss.getSubImage(0, 0);
         }
@@ -78,17 +70,6 @@ public class ImageManager
             SpriteSheet ss = new SpriteSheet("res/img/button.png", 642, 189);
             buttonOfOk = ss.getSubImage(0, 0);
             buttonOfDraw = ss.getSubImage(0, 1);
-        }
-        catch (SlickException e)
-        {
-            e.printStackTrace();
-        }
-
-        try
-        {
-            SpriteSheet ss = new SpriteSheet("res/img/background2.png", 1280, Card.HEIGHT);
-            fieldFrame = ss.getSubImage(0, 0);
-            handCardFrame = ss.getSubImage(0, 1);
         }
         catch (SlickException e)
         {
@@ -123,7 +104,7 @@ public class ImageManager
     {
         float margin = MARGIN * width / (cardBack.getWidth() - MARGIN * 2);
         cardBack.draw(x - width / 2 - margin, y - height / 2 - margin, width + margin * 2, height + margin * 2);
-}
+    }
 
     /**
      * カードを置く枠の画像を描画する

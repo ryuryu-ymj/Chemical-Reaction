@@ -15,12 +15,12 @@ public abstract class GameObject
 	public boolean active;
 
 	/**
-	 * x成分
+	 * 中心点のx座標
 	 */
 	public float x;
 
 	/**
-	 * y成分
+	 * 中心点のy座標
 	 */
 	public float y;
 

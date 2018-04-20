@@ -157,9 +157,9 @@ public class ObjectPool
         // カードをつかむ
         for (int i = 0; i < CARD_MAX; i++)
         {
-            if (gc.getInput().getMouseX() > card[i].x + Card.SPACE_BREADTH && gc.getInput().getMouseX() < card[i].x + Card.WIDTH - Card.SPACE_BREADTH)
+            if (gc.getInput().getMouseX() > card[i].x - Card.WIDTH / 2 && gc.getInput().getMouseX() < card[i].x + Card.WIDTH / 2)
             {
-                if (gc.getInput().getMouseY() > card[i].y + Card.SPACE_BREADTH && gc.getInput().getMouseY() < card[i].y + Card.HEIGHT - Card.SPACE_BREADTH)
+                if (gc.getInput().getMouseY() > card[i].y - Card.HEIGHT && gc.getInput().getMouseY() < card[i].y + Card.HEIGHT / 2)
                 {
                     if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON))
                     {
