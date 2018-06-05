@@ -21,9 +21,17 @@ public class ImageManager
      */
     private static Image cardBack;
     /**
-     * カードを置く枠の画像
+     * カードを置く枠の画像　左
      */
-    private static Image cardFrame;
+    private static Image cardFrameLeft;
+    /**
+     * カードを置く枠の画像　右
+     */
+    private static Image cardFrameRight;
+    /**
+     * カードを置く枠の画像　真ん中
+     */
+    private static Image cardFrameMiddle;
     /**
      * "OK"ボタン
      */
@@ -44,7 +52,7 @@ public class ImageManager
         {
             card = new Image[21];
             SpriteSheet ss = new SpriteSheet("res/img/card.png", 267, 354);
-            for (int i = 0; i < card.length - 1; i++)
+            for (int i = 0; i < card.length; i++)
             {
                 card[i] = ss.getSubImage(i % 7, i / 7);
             }
@@ -56,9 +64,11 @@ public class ImageManager
 
         try
         {
-            SpriteSheet ss = new SpriteSheet("res/img/card2.png", 265, 354);
-            cardBack = ss.getSubImage(1, 0);
-            cardFrame = ss.getSubImage(0, 0);
+            SpriteSheet ss = new SpriteSheet("res/img/card2.png", 244, 298);
+            cardBack = ss.getSubImage(0, 0);
+            cardFrameLeft = ss.getSubImage(1, 0);
+            cardFrameRight = ss.getSubImage(2, 0);
+            cardFrameMiddle = ss.getSubImage(3, 0);
         }
         catch (SlickException e)
         {
@@ -116,8 +126,11 @@ public class ImageManager
      */
     public void renderCardFrame(float x, float y, float width, float height)
     {
-        float margin = MARGIN * width / (cardFrame.getWidth() - MARGIN * 2);
-        cardFrame.draw(x - width / 2 - margin, y - height / 2 - margin, width + margin * 2, height + margin * 2);
+        float margin = MARGIN * height / (cardFrameMiddle.getHeight() - MARGIN * 2);
+        cardFrameLeft.draw(x - width / 2 - margin, y - height / 2 - margin, (cardFrameMiddle.getHeight() - MARGIN * 2) / height);
+        cardFrameRight.draw(x - width / 2 - margin, y - height / 2 - margin, (cardFrameMiddle.getHeight() - MARGIN * 2) / height);
+        cardFrameMiddle.draw(x - width / 2 - margin, y - height / 2 - margin, width + margin * 2, height + margin * 2);
+        System.out.println(x + " " + y + " " +  width + " " +  height);
     }
 
     /**

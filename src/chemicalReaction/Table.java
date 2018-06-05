@@ -83,12 +83,12 @@ public class Table extends GameObject
     @Override
     public void render(Graphics g, ImageManager im)
     {
-        im.renderCardFrame(CardPosition.FIELD.positionX, CardPosition.FIELD.positionY,
+        im.renderCardFrame(CardPosition.FIELD.positionX + CardPosition.FIELD.width / 2, CardPosition.FIELD.positionY + CardPosition.FIELD.height / 2,
                 CardPosition.FIELD.width, CardPosition.FIELD.height);
-        im.renderCardFrame(CardPosition.THROWCARD.positionX, CardPosition.THROWCARD.positionY,
+        /*im.renderCardFrame(CardPosition.THROWCARD.positionX + CardPosition.THROWCARD.width / 2, CardPosition.THROWCARD.positionY + CardPosition.THROWCARD.height / 2,
                 CardPosition.THROWCARD.width, CardPosition.THROWCARD.height);
-        im.renderCardFrame(CardPosition.HANDCARD.positionX, CardPosition.HANDCARD.positionY,
-                CardPosition.HANDCARD.width, CardPosition.HANDCARD.height);
+        im.renderCardFrame(CardPosition.HANDCARD.positionX + CardPosition.HANDCARD.width / 2, CardPosition.HANDCARD.positionY + CardPosition.HANDCARD.height / 2,
+                CardPosition.HANDCARD.width, CardPosition.HANDCARD.height);*/
     }
 
     /**
